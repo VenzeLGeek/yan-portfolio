@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP32 Monitor — User Manual · Yan Kasabutski</title>
+<style>
+  :root{--bg:#08070c;--bg2:#1a1428;--text:#f6f2fa;--muted:#a99fb8;--accent:#ff4d9d;--line:#2b2338;
+    --serif:"Iowan Old Style","Palatino Linotype","Palatino","Georgia",serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:var(--accent);text-decoration:none}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:12px;height:52px;padding:0 22px;
+    background:rgba(8,7,12,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--text)}
+  .nav .back{margin:0 auto;font-size:14px}
+  .langbar2{display:flex;gap:2px;background:rgba(0,0,0,.05);border-radius:20px;padding:3px}
+  .langbtn{border:none;background:transparent;color:var(--text);opacity:.7;font-weight:600;font-size:12.5px;padding:5px 11px;border-radius:16px;cursor:pointer}
+  .langbtn.on{background:var(--accent);color:#fff;opacity:1}
+  .hero{padding:120px 24px 40px;text-align:center;background:var(--bg2)}
+  .hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.01em}
+  .hero p{color:var(--muted);font-size:18px;max-width:720px;margin:14px auto 0}
+  .doc{max-width:780px;margin:0 auto;padding:20px 24px 100px}
+  .msec{padding:30px 0;border-top:1px solid var(--line)}
+  .msec:first-child{border-top:none}
+  .msec h3{font-family:var(--serif);font-size:23px;font-weight:700;margin-bottom:10px}
+  .msec p{color:#cfc7da;font-size:17px;line-height:1.62}
+  .fig{margin:24px 0 4px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg2)}
+  .fig img{display:block;width:100%;max-height:420px;object-fit:contain;margin:0 auto}
+  .fig .cap{padding:12px 16px;color:var(--muted);font-size:14px}
+  .dlwrap{text-align:center;padding:20px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:980px;font-weight:500;font-size:16px;background:var(--accent);color:#fff}
+  .btn:hover{opacity:.88}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="brand">Yan Kasabutski</a>
+  <a href="javascript:history.back()" class="back" data-i18n="mn_back">← Back to portfolio</a>
+  <div class="langbar2">
+    <button class="langbtn on" data-lang="en">EN</button>
+    <button class="langbtn" data-lang="pl">PL</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1 data-i18n="mn_title">ESP32 Monitor — User Manual</h1>
+  <p data-i18n="mn_intro">How to set up and use the system: flashing the firmware, installing the app, connecting nodes, recording, power modes, email alerts and managing data. Written by me; here in English and Polish.</p>
+</div>
+
+<div class="doc">
+  <div class="msec"><h3 data-i18n="m1_h">1. What it is</h3><p data-i18n="m1_p"></p></div>
+  <div class="msec"><h3 data-i18n="m2_h">2. What you need</h3><p data-i18n="m2_p"></p></div>
+  <div class="msec"><h3 data-i18n="m3_h">3. Flash the firmware</h3><p data-i18n="m3_p"></p></div>
+  <div class="msec"><h3 data-i18n="m4_h">4. Install and run the app</h3><p data-i18n="m4_p"></p></div>
+  <div class="msec"><h3 data-i18n="m5_h">5. Main window</h3><p data-i18n="m5_p"></p>
+    <div class="fig"><img src="images/man-boards.png" alt="main window"><div class="cap" data-i18n="mn_cap_main"></div></div>
+  </div>
+  <div class="msec"><h3 data-i18n="m6_h">6. Settings — cloud folder</h3><p data-i18n="m6_p"></p></div>
+  <div class="msec"><h3 data-i18n="m7_h">7. Connecting to a board</h3><p data-i18n="m7_p"></p></div>
+  <div class="msec"><h3 data-i18n="m8_h">8. The board window</h3><p data-i18n="m8_p"></p></div>
+  <div class="msec"><h3 data-i18n="m9_h">9. Power modes</h3><p data-i18n="m9_p"></p></div>
+  <div class="msec"><h3 data-i18n="m10_h">10. Start and stop a recording</h3><p data-i18n="m10_p"></p>
+    <div class="fig"><img src="images/man-wizard.png" alt="recording wizard"><div class="cap" data-i18n="mn_cap_wizard"></div></div>
+    <div class="fig"><img src="images/man-params.png" alt="measurement parameters"><div class="cap" data-i18n="mn_cap_params"></div></div>
+  </div>
+  <div class="msec"><h3 data-i18n="m11_h">11. Email alerts & App password</h3><p data-i18n="m11_p"></p>
+    <div class="fig"><img src="images/man-email.png" alt="email settings"><div class="cap" data-i18n="mn_cap_email"></div></div>
+  </div>
+  <div class="msec"><h3 data-i18n="m12_h">12. ESP32 Data — the board's storage</h3><p data-i18n="m12_p"></p>
+    <div class="fig"><img src="images/man-data.png" alt="esp32 data"><div class="cap" data-i18n="mn_cap_data"></div></div>
+  </div>
+  <div class="msec"><h3 data-i18n="m13_h">13. All Data — files on your computer</h3><p data-i18n="m13_p"></p>
+    <div class="fig"><img src="images/man-alldata.png" alt="all data"><div class="cap" data-i18n="mn_cap_alldata"></div></div>
+  </div>
+  <div class="msec"><h3 data-i18n="m14_h">14. Statistics after a recording</h3><p data-i18n="m14_p"></p></div>
+
+  <div class="dlwrap">
+    <a class="btn" href="downloads/ESP32-Monitor-Manual.pdf" target="_blank" rel="noopener" data-i18n="mn_dl">Download the manual as PDF</a>
+  </div>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>

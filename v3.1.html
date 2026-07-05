@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<!-- САЙТ v3.1 — технический одностраничник (чёрный/розовый/фиолетовый/белый). Использует site.js -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Kasabutski — Software & Embedded Engineer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  :root{--bg:#08060d;--surface:#130f1c;--surface2:#1a1426;--text:#f4f0fa;--muted:#a99fb8;--accent:#ff4d9d;--accent2:#b06bff;
+    --line:#2a2138;--mono:"SF Mono","JetBrains Mono","Roboto Mono",ui-monospace,Menlo,Consolas,monospace}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+  .mono{font-family:var(--mono)}
+  .bg{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(600px 320px at 12% 0%,rgba(255,77,157,.12),transparent 60%),
+    radial-gradient(620px 320px at 88% 18%,rgba(176,107,255,.12),transparent 60%)}
+  .bg::after{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:52px 52px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 80%);animation:drift 40s linear infinite}
+  @keyframes drift{to{background-position:520px 520px}}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:12px;height:56px;padding:0 22px;
+    background:rgba(8,6,13,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--text)}.nav .brand b{color:var(--accent)}
+  .nav .navlinks{display:flex;gap:2px;margin:0 auto}
+  .nav a.nl{font-family:var(--mono);color:var(--muted);font-size:13px;padding:6px 11px;border-radius:7px;white-space:nowrap;transition:color .15s,background .15s}
+  .nav a.nl:hover{color:var(--accent);background:var(--surface)}
+  .langbar2{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:3px}
+  .langbtn{border:none;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:16px;cursor:pointer}
+  .langbtn.on{background:var(--accent);color:#1a0010}
+  @media(max-width:900px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
+  header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 40px}
+  .eyebrow{font-family:var(--mono);color:var(--accent);font-size:13.5px;margin-bottom:18px}
+  .eyebrow .b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite;vertical-align:middle}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:clamp(46px,9vw,96px);line-height:.98;font-weight:800;letter-spacing:-.03em}
+  h1 .g{background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .typed{font-family:var(--mono);font-size:clamp(18px,2.6vw,26px);color:var(--text);margin-top:16px;min-height:1.4em}
+  .typed .car{color:var(--accent);animation:blink 1s step-start infinite}
+  @keyframes blink{50%{opacity:0}}
+  .tagline{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:640px;margin:20px 0 0}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 8px 26px -12px rgba(255,77,157,.6)}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
+  .btn.primary:hover{box-shadow:0 8px 30px -8px rgba(255,77,157,.7)}
+  section{padding:80px 0;border-top:1px solid var(--line)}
+  .slabel{font-family:var(--mono);color:var(--accent);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .slabel .no{color:var(--muted)}.slabel .ln{flex:1;height:1px;background:var(--line)}
+  h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.01em;margin-bottom:10px}
+  .sub{color:var(--muted);font-size:16px;max-width:760px;margin-bottom:30px}
+  .wd{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.wd{grid-template-columns:1fr}}
+  .wdcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .16s,border-color .16s,box-shadow .16s}
+  .wdcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 20px 40px -24px rgba(255,77,157,.5)}
+  .wdcard .ic{font-size:28px;margin-bottom:12px;color:var(--accent)}.wdcard h3{font-size:19px;font-weight:700;margin-bottom:6px}.wdcard p{color:var(--muted);font-size:14.5px}
+  .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .scol{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .scol h4{font-family:var(--mono);color:var(--accent);font-size:12.5px;margin-bottom:12px}
+  .chipset{display:flex;flex-wrap:wrap;gap:7px}
+  .ch{font-family:var(--mono);font-size:12.5px;color:#f0d6e6;background:var(--surface2);border:1px solid var(--line);padding:5px 10px;border-radius:7px;cursor:default;
+    transition:transform .16s ease,background .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease}
+  .ch:hover{transform:translateY(-2px) scale(1.06);background:rgba(255,77,157,.16);border-color:var(--accent);color:#fff;box-shadow:0 7px 18px -8px rgba(255,77,157,.6)}
+  .scol{transition:transform .18s ease,border-color .18s ease}
+  .scol:hover{transform:translateY(-3px);border-color:rgba(255,77,157,.3)}
+  .btn.ico{padding:11px 14px;font-size:17px;line-height:1}
+  .eu-stamp{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--accent2);
+    border:2px solid var(--accent2);border-radius:10px;padding:7px 12px;transform:rotate(-2deg)}
+  .eu-stamp i{margin-right:5px}
+  .minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:28px}
+  .mini{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;transition:transform .16s,border-color .16s}
+  .mini:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .mini .k{font-family:var(--mono);font-size:11.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+  .mini .v{font-size:15.5px;font-weight:600;color:var(--text)}
+  /* PROJECT BLOCKS */
+  .subh{font-family:var(--mono);color:var(--accent);font-size:14px;margin:44px 0 6px;display:flex;align-items:center;gap:8px}
+  .subh::before{content:"";width:18px;height:2px;background:var(--accent);display:inline-block}
+  .lead{color:#e0d8ec;font-size:18px;max-width:820px;margin-bottom:8px}
+  .feats{list-style:none;display:grid;gap:11px;margin:22px 0 6px;max-width:740px}
+  .feats li{display:flex;gap:12px;align-items:flex-start;color:#e0d8ec;font-size:16.5px}
+  .feats li i{color:var(--accent);font-style:normal;font-weight:800;flex:0 0 auto}
+  .imgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+  .imcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .imcard .ph{height:230px;background:#0c0912;display:flex;align-items:center;justify-content:center;padding:12px}
+  .imcard .ph img{max-width:100%;max-height:100%;object-fit:contain}
+  .imcard .cap{padding:12px 16px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+  .carousel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 22px 6px;margin-top:18px}
+  .stage{position:relative;background:#0c0912;border-radius:12px;height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none;padding:10px}
+  .slide.active{opacity:1;pointer-events:auto}.slide img{max-width:100%;max-height:100%;object-fit:contain}
+  .nvb{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(8,6,13,.8);color:var(--text);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+  .nvb:hover{background:var(--accent);color:#fff;transform:translateY(-50%) scale(1.08)}.nvb.prev{left:12px}.nvb.next{right:12px}
+  .cap-bar{color:var(--muted);font-size:14px;min-height:42px;padding:12px 6px 2px;text-align:center}
+  .dots{display:flex;gap:7px;justify-content:center;padding:2px 0 8px;flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:transform .15s,background .15s}
+  .dot.on{background:var(--accent);transform:scale(1.3)}
+  /* DOWNLOAD STEPS */
+  .dlsteps{display:grid;gap:14px;margin-top:16px;max-width:780px}
+  .dlstep{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .dlstep h4{font-size:16.5px;margin-bottom:4px}.dlstep p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+  .dlstep .row{display:flex;flex-wrap:wrap;gap:10px}
+  /* GAMES */
+  .gcards{display:grid;gap:18px}
+  .gcard{display:grid;grid-template-columns:120px 1fr;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;align-items:center}
+  @media(max-width:600px){.gcard{grid-template-columns:1fr;text-align:center}}
+  .gcard .logo{width:110px;height:110px;border-radius:24px;object-fit:cover;box-shadow:0 12px 30px -12px rgba(0,0,0,.5)}
+  .gcard .emoji{width:110px;height:110px;border-radius:24px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:52px}
+  .gcard h3{font-size:20px}.gcard p{color:var(--muted);font-size:15px;margin-top:6px}
+  .badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;margin-left:8px;background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+  .badge.dev{color:#ff86c4;border-color:rgba(255,77,157,.35)}
+  .badge.proto{color:#c79bff;border-color:rgba(176,107,255,.35)}
+  .gbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:flex-start}
+  @media(max-width:600px){.gbtns{justify-content:center}}
+  .gbtn{font-family:var(--mono);font-size:12.5px;padding:9px 13px;border-radius:9px;border:1px solid var(--line);background:var(--surface2);color:var(--text);display:inline-flex;align-items:center;gap:7px}
+  .gbtn.soon{color:var(--muted);cursor:default}
+  .gbtn.mac{border-color:rgba(255,77,157,.45);color:#ff86c4}.gbtn.mac:hover{background:rgba(255,77,157,.12)}
+  .gbtn.link{border-color:rgba(176,107,255,.4);color:#c79bff}.gbtn.link:hover{background:rgba(176,107,255,.12)}
+  .specs{display:grid;grid-template-columns:auto 1fr;gap:7px 20px;margin:6px 0 8px;font-size:14.5px;max-width:600px}
+  .specs dt{color:var(--muted);font-family:var(--mono);font-size:12.5px}
+  .specs dd{color:var(--text)}
+  .projblock{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:20px}
+  .projhead{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+  .projhead img{width:64px;height:64px;border-radius:16px;object-fit:cover;background:#fff}
+  .projhead h3{font-size:22px}
+  .projblock .carousel{background:transparent;border:none;padding:14px 0 6px;margin-top:6px}
+  .phbox{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:15px;text-align:center;padding:20px}
+  .phbox .em{font-size:56px;opacity:.4}
+  .diagram{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;overflow-x:auto;margin-top:6px}
+  svg.flow{width:100%;min-width:660px;height:auto;display:block}
+  .dbox{fill:var(--surface2);stroke:var(--accent);stroke-width:1.5}
+  .dbox.p{stroke:var(--accent2)}
+  .dt{fill:var(--text);font:600 14px -apple-system,"Segoe UI",sans-serif}
+  .ds{fill:var(--muted);font:11.5px -apple-system,"Segoe UI",sans-serif}
+  .dl{stroke:var(--accent);stroke-width:1.8;opacity:.85}
+  .dl.p{stroke:var(--accent2);stroke-dasharray:5 4}
+  .dcap{fill:#d7c8e6;font:600 11.5px var(--mono)}
+  /* interactive net map */
+  .netmap{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 18px 14px;margin-top:6px;overflow:visible}
+  .nm-toggle{display:inline-flex;gap:3px;background:var(--surface2);border:1px solid var(--line);border-radius:22px;padding:3px;margin-bottom:18px}
+  .nm-btn{border:none;background:transparent;color:var(--muted);font-family:var(--mono);font-size:13px;font-weight:700;padding:7px 16px;border-radius:18px;cursor:pointer}
+  .nm-btn.on{background:var(--accent);color:#1a0010}
+  .nm-stage{position:relative;width:100%;aspect-ratio:1000/520}
+  @media(max-width:680px){.blk .t{font-size:11px}.blk small{font-size:9px}.blk.chip .t{font-size:9.5px}.pop img{max-width:180px;max-height:130px}.pop.clouds img{width:40px;height:40px}}
+  .nm-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .nml{stroke:var(--accent);stroke-width:2}.nmlp{stroke:var(--accent2);stroke-width:2}.nmlp.p{stroke-dasharray:5 4}
+  .nmcap{fill:#d7c8e6;font:600 12px var(--mono)}
+  .blk{position:absolute;background:var(--surface2);border:1.5px solid var(--accent);border-radius:14px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:6px;transition:box-shadow .2s,transform .2s}
+  .blk.pp{border-color:var(--accent2)}
+  .blk:hover{box-shadow:0 0 0 2px rgba(255,77,157,.28);transform:translateY(-1px);z-index:5}
+  .blk .t{color:var(--text);font-weight:700;font-size:15px;line-height:1.15}
+  .blk small{color:var(--muted);font-size:11.5px;margin-top:2px}
+  .blk.chip .t{font-size:12.5px}
+  .pop{position:absolute;left:50%;bottom:100%;transform:translate(-50%,12px) scale(.4);transform-origin:center bottom;opacity:0;
+    pointer-events:none;z-index:30;transition:transform .32s cubic-bezier(.2,.8,.3,1.3),opacity .24s}
+  .blk:hover .pop{opacity:1;transform:translate(-50%,-14px) scale(1)}
+  .pop img{max-width:250px;max-height:175px;border-radius:12px;border:1px solid var(--line);box-shadow:0 24px 60px -18px rgba(0,0,0,.85);background:#0c0912;display:block}
+  .pop.clouds{display:flex;gap:8px;transform:translate(-50%,12px);opacity:0;white-space:nowrap}
+  .blk:hover .pop.clouds{opacity:1;transform:translate(-50%,-14px)}
+  .pop.clouds img{width:54px;height:54px;object-fit:contain;background:#fff;border-radius:12px;padding:7px;max-width:none;max-height:none;border:none;box-shadow:0 12px 24px -10px rgba(0,0,0,.7);
+    transform:scale(.2);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.3,1.4),opacity .26s}
+  .blk:hover .pop.clouds img{transform:scale(1);opacity:1}
+  .pop.clouds img:nth-child(1){transition-delay:.02s}.pop.clouds img:nth-child(2){transition-delay:.07s}
+  .pop.clouds img:nth-child(3){transition-delay:.12s}.pop.clouds img:nth-child(4){transition-delay:.17s}.pop.clouds img:nth-child(5){transition-delay:.22s}
+  .netmap.mode1 .only7{display:none}.netmap.mode7 .only1{display:none}
+  .netmap.mode1 .l7{display:none}.netmap.mode7 .l1{display:none}
+  .nm-hint{color:var(--muted);font-size:12.5px;margin-top:12px;font-family:var(--mono)}
+  .oslogo{display:inline-block;width:17px;height:17px;object-fit:contain;vertical-align:-4px;margin-right:3px}
+  .oslogo.win{width:21px;height:21px;vertical-align:-6px}
+  .blk small .oslogo{width:14px;height:14px;vertical-align:-3px;margin-right:1px}
+  /* power modes */
+  .pmodes{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:6px}
+  .pm-toggle{display:inline-flex;gap:3px;background:var(--surface2);border:1px solid var(--line);border-radius:22px;padding:3px;margin-bottom:22px}
+  .pm-btn{border:none;background:transparent;color:var(--muted);font-family:var(--mono);font-size:13px;font-weight:700;padding:8px 16px;border-radius:18px;cursor:pointer}
+  .pm-btn.on{background:var(--accent);color:#1a0010}
+  .pm-body{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+  @media(max-width:720px){.pm-body{grid-template-columns:1fr;gap:26px}}
+  .pm-conn{text-align:center}
+  .pm-conn svg{width:100%;max-width:340px;height:auto}
+  .pm-node{fill:var(--surface2);stroke:var(--accent);stroke-width:1.5}
+  .pm-tgt{fill:var(--surface2);stroke:var(--line);stroke-width:1.2}
+  .pm-nt{fill:var(--text);font:600 13px -apple-system,"Segoe UI",sans-serif}
+  .cline{stroke:#3ddc84;stroke-width:4;stroke-linecap:round;transition:stroke .3s}
+  .carrow{stroke:#3ddc84;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+  .pm-conn.radio .cline{stroke:#ffcf5a;stroke-width:3;stroke-dasharray:7 6}
+  .pm-conn.radio .carrow{stroke:#ffcf5a}
+  .waves{opacity:0;transition:opacity .35s}
+  .pm-conn.radio .waves{opacity:1}
+  .pm-conn-label{margin-top:8px;font-family:var(--mono);font-size:13px;font-weight:700;color:#3ddc84}
+  .pm-conn.radio .pm-conn-label{color:#ffcf5a}
+  .pm-eff{font-family:var(--mono);font-weight:800;font-size:clamp(20px,3vw,28px);color:var(--accent2);margin-bottom:16px;text-align:center}
+  .pm-bars{display:flex;gap:24px;justify-content:center;align-items:flex-end}
+  .pm-col{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .pm-num{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--text)}
+  .pm-bar{width:56px;height:170px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;position:relative;overflow:hidden}
+  .pm-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,var(--accent),var(--accent2));transition:height .65s cubic-bezier(.3,.85,.3,1)}
+  .pm-blabel{font-size:11.5px;color:var(--muted);text-align:center;max-width:72px;line-height:1.2}
+  .pm-desc{margin-top:22px;text-align:center;max-width:660px;margin-left:auto;margin-right:auto}
+  .pm-desc h4{font-size:18px;margin-bottom:5px}.pm-desc p{color:var(--muted);font-size:15px}
+  .pm-banner{margin-top:18px;background:rgba(255,207,90,.08);border:1px solid rgba(255,207,90,.28);border-radius:12px;padding:14px 16px;color:#efe4d2;font-size:14.5px;text-align:center}
+  .protos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  @media(max-width:600px){.protos{grid-template-columns:1fr}}
+  .proto{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .proto h4{font-size:15.5px}.proto p{color:var(--muted);font-size:13.5px;margin-top:6px}
+  .timeline{position:relative;padding-left:8px}
+  .timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--line)}
+  .tstep{position:relative;padding:0 0 24px 28px}
+  .tstep::before{content:"";position:absolute;left:0;top:5px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  .tstep .yr{font-family:var(--mono);color:var(--accent);font-size:13px}.tstep h4{font-size:17px;margin:2px 0 3px}.tstep p{color:var(--muted);font-size:14.5px}
+  footer{border-top:1px solid var(--line);padding:80px 0}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-end}
+  .foot-note{color:var(--muted);font-family:var(--mono);font-size:13px;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<nav class="nav">
+  <a href="#top" class="brand">yan<b>.</b>kasabutski</a>
+  <div class="navlinks">
+    <a class="nl" href="#about">./about</a>
+    <a class="nl" href="#skills">./skills</a>
+    <a class="nl" href="#projects">./projects</a>
+    <a class="nl" href="#games">./games</a>
+    <a class="nl" href="manual.html">./manual</a>
+    <a class="nl" href="#contact">./contact</a>
+  </div>
+  <div class="langbar2"><button class="langbtn on" data-lang="en">EN</button><button class="langbtn" data-lang="pl">PL</button></div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="b"></span><span data-i18n="as_avail">Available for work</span> · <span data-i18n="hero_based">Based in the EU</span></div>
+    <h1 class="reveal">Yan<span class="g">.</span>Kasabutski</h1>
+    <div class="eu-stamp reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="stamp_edu">EU-accredited B.Sc. · Graduated 2026</span></div>
+    <div class="typed reveal">I build <span id="tw"></span><span class="car">▋</span></div>
+    <p class="tagline reveal" data-i18n="hero_tagline">I build complete products end to end — desktop applications, native Apple apps and games, and low-power embedded systems.</p>
+    <div class="cta reveal">
+      <a class="btn primary" href="#projects">my projects</a>
+      <a class="btn" href="mailto:yan6050773@gmail.com"><i class="fa-solid fa-envelope"></i> <span data-i18n="btn_email">Email me</span></a>
+      <a class="btn" href="https://github.com/VenzeLGeek" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/yan-kasabutski-82170b38a/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a class="btn" href="https://www.instagram.com/fl1pfl0pfr0g/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a class="btn" href="{ITCH}" target="_blank" rel="noopener"><i class="fa-brands fa-itch-io"></i> itch.io</a>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT ME -->
+<section id="about" style="border-top:none">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">//</span> <span data-i18n="about_kicker">about me</span><span class="ln"></span></div>
+    <p class="lead reveal" data-i18n="ab_p">I'm Yan, 23, from Belarus and based in the EU.</p>
+    <div class="minis">
+      <div class="mini reveal"><div class="k" data-i18n="mi_name">Name</div><div class="v">Yan Kasabutski · 23</div></div>
+      <div class="mini reveal"><div class="k" data-i18n="mi_from">From</div><div class="v" data-i18n="mi_from_v">🇧🇾 Belarus</div></div>
+      <div class="mini reveal"><div class="k" data-i18n="mi_coding">Coding since</div><div class="v">2018</div></div>
+      <div class="mini reveal"><div class="k" data-i18n="mi_based">Based in</div><div class="v" data-i18n="mi_based_v">European Union</div></div>
+      <div class="mini reveal"><div class="k" data-i18n="mi_edu">Education</div><div class="v" data-i18n="mi_edu_v">B.Sc. — EU-accredited (TUKE)</div></div>
+      <div class="mini reveal"><div class="k" data-i18n="mi_langs">Languages</div><div class="v" data-i18n="mi_langs_v">Polish · Slovak · Russian · English</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I CAN DO -->
+<section id="do" style="border-top:none">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">//</span> <span data-i18n="wd_h">what I can do</span><span class="ln"></span></div>
+    <div class="wd">
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-microchip"></i></div><h3 data-i18n="wd_emb_h">Embedded & IoT</h3><p data-i18n="wd_emb_p"></p></div>
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-laptop-code"></i></div><h3 data-i18n="wd_app_h">Applications</h3><p data-i18n="wd_app_p"></p></div>
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-gamepad"></i></div><h3 data-i18n="wd_game_h">Games</h3><p data-i18n="wd_game_p"></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">01</span> / <span data-i18n="nav_skills">skills</span><span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="sk_h2">What I work with</h2>
+    <div class="stack">
+      <div class="scol reveal"><h4>// <span data-i18n="skc_lang">languages</span></h4><div class="chipset"><span class="ch">C</span><span class="ch">C++</span><span class="ch">C#</span><span class="ch">Python</span><span class="ch">Swift</span></div></div>
+      <div class="scol reveal"><h4>// <span data-i18n="skc_tools">tools &amp; environments</span></h4><div class="chipset"><span class="ch">VS Code</span><span class="ch">Xcode</span><span class="ch">Arduino IDE</span><span class="ch">ESP-IDF</span><span class="ch">Git</span><span class="ch">MATLAB</span><span class="ch">SolidWorks</span></div></div>
+      <div class="scol reveal"><h4>// <span data-i18n="skc_hw">hardware &amp; IoT</span></h4><div class="chipset"><span class="ch">ESP32</span><span class="ch">Arduino</span><span class="ch">nRF</span><span class="ch">Raspberry Pi</span><span class="ch">Bluetooth LE</span><span class="ch">moisture sensors</span><span class="ch">temp / humidity sensors</span><span class="ch">low-power design</span></div></div>
+      <div class="scol reveal"><h4>// <span data-i18n="skc_lib">libraries</span></h4><div class="chipset"><span class="ch">NimBLE</span><span class="ch">bleak</span><span class="ch">tkinter</span><span class="ch">matplotlib</span><span class="ch">asyncio</span></div></div>
+      <div class="scol reveal"><h4>// <span data-i18n="skc_data">data &amp; files</span></h4><div class="chipset"><span class="ch">REST API</span><span class="ch">JSON</span><span class="ch">CSV</span><span class="ch">SQLite</span><span class="ch">cloud sync</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">02</span> / <span data-i18n="proj_h">projects</span><span class="ln"></span></div>
+
+    <!-- MY SOFTWARE -->
+    <div class="subh reveal"><span data-i18n="sub_prog">My software</span></div>
+    <div class="projhead reveal"><img src="images/esp32-logo.png" alt="ESP32 Monitor logo"><h2 style="margin:0;font-size:clamp(24px,3.4vw,34px)">ESP32 Monitor</h2></div>
+    <p class="note reveal" style="margin:2px 0 10px" data-i18n="prog_title">Soil-moisture monitoring system</p>
+    <p class="lead reveal" data-i18n="prog_intro">My bachelor's thesis — a small wireless system that keeps an eye on how wet the soil is...</p>
+    <dl class="specs reveal">
+      <dt data-i18n="sp_dev">Developer</dt><dd>Yan Kasabutski</dd>
+      <dt data-i18n="sp_cat">Category</dt><dd data-i18n="cat_prog">Program</dd>
+      <dt data-i18n="sp_plat">Platforms</dt><dd>Windows, macOS</dd>
+    </dl>
+    <ul class="feats reveal">
+      <li><i>✓</i><span data-i18n="feat1">Measures soil moisture, temperature and air humidity</span></li>
+      <li><i>✓</i><span data-i18n="feat2">Sends the data to your computer over Bluetooth</span></li>
+      <li><i>✓</i><span data-i18n="feat3">Shows live readings and graphs, and saves them to a file and the cloud</span></li>
+      <li><i>✓</i><span data-i18n="feat4">Emails you when the soil gets too dry</span></li>
+      <li><i>✓</i><span data-i18n="feat5">Runs for weeks on a small battery</span></li>
+    </ul>
+
+    <div class="subh reveal"><span data-i18n="as_howworks">How it works</span></div>
+    <div class="netmap mode1 reveal" id="netmap">
+      <div class="nm-toggle">
+        <button class="nm-btn on" data-mode="1">1 node</button>
+        <button class="nm-btn" data-mode="7">7 nodes</button>
+      </div>
+      <div class="nm-stage">
+        <svg class="nm-lines" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="na" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#ff4d9d"/></marker>
+            <marker id="nap" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b06bff"/></marker>
+          </defs>
+          <!-- always: app -> cloud -->
+          <line class="nml" x1="610" y1="172" x2="762" y2="172" marker-end="url(#na)"/>
+          <text class="nmcap" x="690" y="158" text-anchor="middle">auto-save</text>
+          <!-- mode 1 -->
+          <g class="l1">
+            <line class="nml" x1="262" y1="170" x2="402" y2="172" marker-end="url(#na)"/>
+            <text class="nmcap" x="335" y="158" text-anchor="middle">BLE</text>
+            <line class="nmlp p" x1="110" y1="220" x2="110" y2="372" marker-end="url(#nap)"/>
+            <text class="nmcap" x="122" y="304" text-anchor="start">Wi-Fi</text>
+            <line class="nmlp p" x1="235" y1="220" x2="415" y2="372" marker-end="url(#nap)"/>
+            <text class="nmcap" x="345" y="292" text-anchor="middle">Bluetooth</text>
+          </g>
+          <!-- mode 7 -->
+          <g class="l7">
+            <line class="nml" x1="182" y1="52"  x2="404" y2="164" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="120" x2="404" y2="167" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="188" x2="404" y2="170" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="256" x2="404" y2="172" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="324" x2="404" y2="174" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="392" x2="404" y2="176" marker-end="url(#na)"/>
+            <line class="nml" x1="182" y1="460" x2="404" y2="179" marker-end="url(#na)"/>
+            <text class="nmcap" x="300" y="150" text-anchor="middle">BLE × 7</text>
+          </g>
+        </svg>
+
+        <!-- single node (mode 1) -->
+        <div class="blk only1" style="left:4%;top:23%;width:22%;height:19%">
+          <div class="t">Sensor node</div><small>ESP32 · soil · temp · humidity</small>
+          <div class="pop"><img src="images/diag-node.png" alt="ESP32 node"></div>
+        </div>
+        <!-- 7 nodes (mode 7) -->
+        <div class="blk chip only7" style="left:3%;top:5.8%;width:15%;height:8.5%"><div class="t">Node 1</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:18.9%;width:15%;height:8.5%"><div class="t">Node 2</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:31.9%;width:15%;height:8.5%"><div class="t">Node 3</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:45%;width:15%;height:8.5%"><div class="t">Node 4</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:58.1%;width:15%;height:8.5%"><div class="t">Node 5</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:71.1%;width:15%;height:8.5%"><div class="t">Node 6</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+        <div class="blk chip only7" style="left:3%;top:84.2%;width:15%;height:8.5%"><div class="t">Node 7</div><div class="pop"><img src="images/diag-node.png" alt=""></div></div>
+
+        <!-- app -->
+        <div class="blk" style="left:41%;top:25%;width:20%;height:16%">
+          <div class="t">Computer app</div><small><img class="oslogo" src="images/os-windows.png" alt=""><img class="oslogo" src="images/os-macos.png" alt="">Windows · macOS</small>
+          <div class="pop"><img src="images/diag-laptop.png" alt="App on a laptop"></div>
+        </div>
+        <!-- cloud -->
+        <div class="blk" style="left:77%;top:25%;width:20%;height:16%">
+          <div class="t">Cloud backup</div><small>any cloud</small>
+          <div class="pop clouds"><img src="images/clouds/onedrive.png" alt="OneDrive"><img src="images/clouds/gdrive.png" alt="Google Drive"><img src="images/clouds/dropbox.png" alt="Dropbox"><img src="images/clouds/icloud.png" alt="iCloud"><img src="images/clouds/yandex.png" alt="Yandex Disk"></div>
+        </div>
+        <!-- email -->
+        <div class="blk pp only1" style="left:4%;top:73%;width:22%;height:16%">
+          <div class="t">Email alert</div><small>when the soil gets dry</small>
+          <div class="pop"><img src="images/diag-email.png" alt="Email notification"></div>
+        </div>
+        <!-- phone -->
+        <div class="blk pp only1" style="left:32%;top:73%;width:20%;height:16%">
+          <div class="t">Phone</div><small>quick check</small>
+          <div class="pop"><img src="images/diag-phone.png" alt="Phone app"></div>
+        </div>
+      </div>
+      <div class="nm-hint">↑ hover a block to see it · toggle <b>1 / 7 nodes</b> to see the network scale</div>
+    </div>
+
+    <div class="subh reveal"><span data-i18n="pm_h">What I invented: switchable power modes</span></div>
+    <p class="lead reveal" data-i18n="pm_sub">Three power modes you switch on the fly — no reflashing, no hardware change.</p>
+    <div class="pmodes reveal" id="pmodes">
+      <div class="pm-toggle">
+        <button class="pm-btn on" data-mode="normal">Normal</button>
+        <button class="pm-btn" data-mode="light">Light Sleep</button>
+        <button class="pm-btn" data-mode="deep">Deep Sleep</button>
+      </div>
+      <div class="pm-body">
+        <div class="pm-conn direct" id="pmConn">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g class="waves" fill="none" stroke="#ffcf5a" stroke-width="2" stroke-linecap="round">
+              <path d="M106,92 Q118,101 106,110"/>
+              <path d="M106,85 Q129,101 106,117"/>
+              <path d="M106,78 Q140,101 106,124"/>
+            </g>
+            <polyline class="cline" points="104,92 206,44" fill="none"/>
+            <polyline class="cline" points="104,110 206,158" fill="none"/>
+            <polyline class="carrow" points="197,36 207,44 197,52" fill="none"/>
+            <polyline class="carrow" points="197,150 207,158 197,166" fill="none"/>
+            <rect class="pm-node" x="12" y="78" width="94" height="46" rx="11"/>
+            <text class="pm-nt" x="59" y="105" text-anchor="middle">Board</text>
+            <rect class="pm-tgt" x="208" y="22" width="104" height="44" rx="11"/>
+            <text class="pm-nt" x="260" y="49" text-anchor="middle">Computer</text>
+            <rect class="pm-tgt" x="208" y="136" width="104" height="44" rx="11"/>
+            <text class="pm-nt" x="260" y="163" text-anchor="middle">Phone</text>
+          </svg>
+          <div class="pm-conn-label" id="pmConnLabel">Direct connection</div>
+        </div>
+        <div class="pm-meters">
+          <div class="pm-eff" id="pmEff">baseline</div>
+          <div class="pm-bars">
+            <div class="pm-col"><div class="pm-num" id="numData">100%</div><div class="pm-bar"><div class="pm-fill" id="barData"></div></div><div class="pm-blabel" data-i18n="pm_bar_data">Real-time data</div></div>
+            <div class="pm-col"><div class="pm-num" id="numCtrl">100%</div><div class="pm-bar"><div class="pm-fill" id="barCtrl"></div></div><div class="pm-blabel" data-i18n="pm_bar_ctrl">Real-time control</div></div>
+            <div class="pm-col"><div class="pm-num" id="numBatt">10%</div><div class="pm-bar"><div class="pm-fill" id="barBatt"></div></div><div class="pm-blabel" data-i18n="pm_bar_batt">Battery life</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-desc"><h4 id="pmTitle">Normal — maximum availability</h4><p id="pmDesc">The board stays directly connected to your computer and phone.</p></div>
+      <div class="pm-banner" data-i18n="pm_banner">Two ways to connect: a direct live link, and a radio-style broadcast I built for Deep Sleep.</div>
+    </div>
+
+    <div class="subh reveal"><span data-i18n="sys_look_h">How it looks and how it connects</span></div>
+    <div class="imgrid reveal">
+      <div class="imcard"><div class="ph"><img src="images/deploy-plant.png" alt="on plant"></div><div class="cap" data-i18n="hw1_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/node-breadboard.png" alt="node"></div><div class="cap" data-i18n="hw2_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/sys-node.png" alt="node2"></div><div class="cap" data-i18n="hw3_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/esp32-housing.png" alt="enclosure"></div><div class="cap" data-i18n="hw4_c"></div></div>
+    </div>
+
+    <div class="subh reveal"><span data-i18n="app_look_h">The program</span></div>
+    <p class="lead reveal" data-i18n="app_look_p">The desktop app connects to the nodes over Bluetooth and shows everything in one place.</p>
+    <div class="carousel reveal">
+      <div class="stage">
+        <button class="nvb prev" aria-label="Previous">‹</button>
+        <figure class="slide" data-cap-en="Main dashboard — live temperature, humidity and soil moisture from each node." data-cap-pl="Główny pulpit — temperatura, wilgotność i wilgotność gleby z każdego węzła na żywo."><img src="images/app-01.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="Deep Sleep + broadcast — live data even without a live connection." data-cap-pl="Deep Sleep + broadcast — dane na żywo nawet bez stałego połączenia."><img src="images/app-02.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="Board control — start/stop recording, files and settings for each node." data-cap-pl="Sterowanie płytką — start/stop zapisu, pliki i ustawienia dla każdego węzła."><img src="images/app-03.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="Recording statistics — averages, minimums and maximums." data-cap-pl="Statystyki zapisu — średnie, minima i maksima."><img src="images/app-04.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-05.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-06.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-07.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-08.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-09.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-10.png" alt="app"></figure>
+        <figure class="slide" data-cap-en="The ESP32 Monitor desktop app." data-cap-pl="Aplikacja ESP32 Monitor."><img src="images/app-11.png" alt="app"></figure>
+        <button class="nvb next" aria-label="Next">›</button>
+      </div>
+      <div class="cap-bar"></div><div class="dots"></div>
+    </div>
+    <p class="note reveal" style="margin-top:12px" data-i18n="sensirion_note">It also works with the Sensirion MyAmbience mobile app — that app is Sensirion's; I built the integration with it.</p>
+
+    <div class="subh reveal"><span data-i18n="dl_h">Try it yourself</span></div>
+    <div class="dlsteps">
+      <div class="dlstep reveal">
+        <h4 data-i18n="dl_fw_h">1 · Firmware for the boards</h4>
+        <p data-i18n="dl_fw_p">Flash it to your ESP32 board with the Arduino IDE (libraries included).</p>
+        <div class="row">
+          <a class="btn" href="downloads/ESP32-Monitor-Firmware.zip" download data-i18n="dl_fw_btn">⤓ Download firmware (.zip)</a>
+        </div>
+      </div>
+      <div class="dlstep reveal">
+        <h4 data-i18n="dl_app_h">2 · The desktop program</h4>
+        <p data-i18n="dl_app_p">Install and run — no setup needed.</p>
+        <div class="row">
+          <a class="btn primary" href="downloads/ESP32-Monitor-Windows.exe" download><img class="oslogo win" src="images/os-windows.png" alt=""> <span data-i18n="btn_win">Download for Windows</span></a>
+          <a class="btn" href="downloads/ESP32-Monitor-macOS.zip" download><img class="oslogo" src="images/os-macos.png" alt=""> <span data-i18n="btn_mac">Download for macOS</span></a>
+        </div>
+      </div>
+      <div class="dlstep reveal">
+        <h4 data-i18n="dl_man_h">3 · How to use it all</h4>
+        <p data-i18n="dl_man_p">A full step-by-step manual — flashing the firmware and using the program.</p>
+        <div class="row">
+          <a class="btn" href="manual.html" data-i18n="btn_openmanual">Open the full manual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY GAMES -->
+    <div class="subh reveal" id="games" style="scroll-margin-top:70px"><span data-i18n="sub_games">My Games</span></div>
+
+    <!-- FROGRAM -->
+    <article class="projblock reveal">
+      <div class="projhead"><img src="images/frog-logo.png" alt="Frogram"><div><h3>Frogram Operating Commander <span class="badge dev" data-i18n="badge_dev">In development</span></h3></div></div>
+      <dl class="specs">
+        <dt data-i18n="sp_dev">Developer</dt><dd>Yan Kasabutski</dd>
+        <dt data-i18n="sp_cat">Category</dt><dd data-i18n="cat_game">Game</dd>
+        <dt data-i18n="sp_gen">Genre</dt><dd data-i18n="gen_frog">JRPG · 32-bit style · story-driven</dd>
+        <dt data-i18n="sp_plat">Platforms</dt><dd>macOS, iOS, iPadOS</dd>
+      </dl>
+      <div class="carousel">
+        <div class="stage">
+          <button class="nvb prev" aria-label="Previous">‹</button>
+          <figure class="slide" data-cap-en="Gameplay screenshots coming soon." data-cap-pl="Zrzuty ekranu z rozgrywki wkrótce."><div class="phbox"><span class="em"><i class="fa-regular fa-image"></i></span><span data-i18n="ph_soon">Gameplay screenshots coming soon</span></div></figure>
+          <figure class="slide" data-cap-en="Follow the devlog for early looks." data-cap-pl="Śledź devlog, by zobaczyć więcej."><div class="phbox"><span class="em"><i class="fa-regular fa-images"></i></span><span data-i18n="ph_soon2">Follow the devlog for early looks</span></div></figure>
+          <button class="nvb next" aria-label="Next">›</button>
+        </div>
+        <div class="cap-bar"></div><div class="dots"></div>
+      </div>
+      <p class="lead" data-i18n="frog_desc" style="margin-top:14px">Set in the world of FlipFlop — a universe with deep lore and immersive gameplay.</p>
+      <div class="gbtns" style="margin-top:16px">
+        <span class="gbtn soon"><i class="fa-brands fa-app-store-ios"></i> <span data-i18n="gb_ios">iOS / iPadOS · App Store (soon)</span></span>
+        <a class="gbtn mac" href="#"><i class="fa-brands fa-apple"></i> <span data-i18n="gb_mac">macOS · download .app</span></a>
+        <a class="gbtn link" href="https://www.instagram.com/fl1pfl0pfr0g/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> <span data-i18n="link_devlog">Art & devlog →</span></a>
+      </div>
+    </article>
+
+    <!-- HOCKEY -->
+    <article class="projblock reveal">
+      <div class="projhead"><img src="images/hockey-logo.png" alt="Crazy International Hockey"><div><h3>Crazy International Hockey <span class="badge dev" data-i18n="badge_dev">In development</span></h3></div></div>
+      <dl class="specs">
+        <dt data-i18n="sp_dev">Developer</dt><dd>Yan Kasabutski</dd>
+        <dt data-i18n="sp_cat">Category</dt><dd data-i18n="cat_game">Game</dd>
+        <dt data-i18n="sp_gen">Genre</dt><dd data-i18n="gen_hockey">Arcade · 1 vs 1 · local multiplayer</dd>
+        <dt data-i18n="sp_plat">Platforms</dt><dd>macOS, iOS, iPadOS</dd>
+      </dl>
+      <div class="carousel">
+        <div class="stage">
+          <button class="nvb prev" aria-label="Previous">‹</button>
+          <figure class="slide" data-cap-en="Gameplay screenshots coming soon." data-cap-pl="Zrzuty ekranu z rozgrywki wkrótce."><div class="phbox"><span class="em"><i class="fa-regular fa-image"></i></span><span data-i18n="ph_soon">Gameplay screenshots coming soon</span></div></figure>
+          <figure class="slide" data-cap-en="Follow progress for early looks." data-cap-pl="Śledź postępy, by zobaczyć więcej."><div class="phbox"><span class="em"><i class="fa-regular fa-images"></i></span><span data-i18n="ph_soon2">Follow the devlog for early looks</span></div></figure>
+          <button class="nvb next" aria-label="Next">›</button>
+        </div>
+        <div class="cap-bar"></div><div class="dots"></div>
+      </div>
+      <p class="lead" data-i18n="hockey_desc" style="margin-top:14px">A fast, pick-up-and-play arcade hockey game — 1 vs 1, with local multiplayer.</p>
+      <div class="gbtns" style="margin-top:16px">
+        <span class="gbtn soon"><i class="fa-brands fa-app-store-ios"></i> <span data-i18n="gb_ios">iOS / iPadOS · App Store (soon)</span></span>
+        <a class="gbtn mac" href="#"><i class="fa-brands fa-apple"></i> <span data-i18n="gb_mac">macOS · download .app</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 03 JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">03</span> / <span data-i18n="jr_kicker">journey</span><span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="jr_h2">From game prototypes to a full IoT system</h2>
+    <div class="timeline reveal" style="margin-top:20px">
+      <div class="tstep"><div class="yr">2018 – 2019</div><h4 data-i18n="jr1_h">Started coding</h4><p data-i18n="jr1_p"></p></div>
+      <div class="tstep"><div class="yr">2022</div><h4 data-i18n="jr2_h">University & more projects</h4><p data-i18n="jr2_p"></p></div>
+      <div class="tstep"><div class="yr">2025</div><h4 data-i18n="jr3_h">Native Apple development</h4><p data-i18n="jr3_p"></p></div>
+      <div class="tstep"><div class="yr">2026</div><h4 data-i18n="jr4_h">EU B.Sc. & a complete IoT system</h4><p data-i18n="jr4_p"></p></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">04</span> / <span data-i18n="nav_contact">contact</span><span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="ft_h2">Let's build something.</h2>
+    <p class="sub reveal" data-i18n="ft_sub"></p>
+    <div class="foot-grid">
+      <div class="cta reveal">
+        <a class="btn primary" href="mailto:yan6050773@gmail.com"><i class="fa-solid fa-envelope"></i> yan6050773@gmail.com</a>
+        <a class="btn" href="https://github.com/VenzeLGeek" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/yan-kasabutski-82170b38a/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a class="btn" href="https://www.instagram.com/fl1pfl0pfr0g/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a class="btn" href="{ITCH}" target="_blank" rel="noopener"><i class="fa-brands fa-itch-io"></i> itch.io</a>
+      </div>
+      <p class="foot-note reveal">+48 512 030 374<br>+421 950 373 353<br>Based in the EU · open to relocation in Poland</p>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  (function(){
+    var words=["firmware.","native apps.","games.","full systems."], el=document.getElementById("tw"), w=0,c=0,del=false;
+    function tick(){ var word=words[w]; el.textContent=word.substring(0,c);
+      if(!del){ c++; if(c>word.length){ del=true; setTimeout(tick,1300); return; } }
+      else { c--; if(c<0){ del=false; w=(w+1)%words.length; c=0; } }
+      setTimeout(tick, del?45:90); }
+    tick();
+  })();
+  // net map 1 / 7 nodes toggle
+  document.querySelectorAll(".nm-btn").forEach(function(b){
+    b.addEventListener("click", function(){
+      var nm=this.closest(".netmap"); var m7=this.dataset.mode==="7";
+      nm.classList.toggle("mode7", m7); nm.classList.toggle("mode1", !m7);
+      nm.querySelectorAll(".nm-btn").forEach(function(x){ x.classList.toggle("on", x===b); });
+    });
+  });
+
+  // power modes
+  var MODES={
+    normal:{data:100,control:100,battery:10,conn:"direct",
+      eff:{en:"baseline",pl:"poziom bazowy"},
+      title:{en:"Normal — maximum availability",pl:"Normal — maksymalna dostępność"},
+      desc:{en:"The board stays directly connected to your computer and phone. You see everything live and control it instantly — at the cost of battery life.",pl:"Płytka jest bezpośrednio połączona z komputerem i telefonem. Widzisz wszystko na żywo i sterujesz natychmiast — kosztem czasu pracy na baterii."},
+      clabel:{en:"Direct connection",pl:"Bezpośrednie połączenie"}},
+    light:{data:78,control:100,battery:32,conn:"direct",
+      eff:{en:"+22% efficiency",pl:"+22% wydajności"},
+      title:{en:"Light Sleep — balanced",pl:"Light Sleep — zrównoważony"},
+      desc:{en:"A middle ground: about 22% more efficient and data arrives a little slower, but you still keep full real-time control.",pl:"Złoty środek: około 22% wydajniej, dane przychodzą nieco wolniej, ale zachowujesz pełne sterowanie na żywo."},
+      clabel:{en:"Direct connection",pl:"Bezpośrednie połączenie"}},
+    deep:{data:55,control:0,battery:100,conn:"radio",
+      eff:{en:"up to +93% efficiency",pl:"do +93% wydajności"},
+      title:{en:"Deep Sleep — maximum battery life",pl:"Deep Sleep — maksymalny czas na baterii"},
+      desc:{en:"The board mostly sleeps and wakes briefly to broadcast readings like a radio — no live connection needed, yet you still see data in real time. Battery lasts for weeks.",pl:"Płytka głównie śpi i budzi się na chwilę, by nadawać odczyty jak radio — bez stałego połączenia, a mimo to widzisz dane na żywo. Bateria starcza na tygodnie."},
+      clabel:{en:"Radio broadcast — no live link needed",pl:"Nadawanie radiowe — bez stałego łącza"}}
+  };
+  var pmCur="normal";
+  function pmRender(mode){
+    var m=MODES[mode], L=(window.currentLang||"en");
+    function set(id,v){ var e=document.getElementById(id); if(e) e.style.height=v+"%"; }
+    function txt(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+    set("barData",m.data); set("barCtrl",m.control); set("barBatt",m.battery);
+    txt("numData",m.data+"%"); txt("numCtrl",m.control+"%"); txt("numBatt",m.battery+"%");
+    txt("pmEff",m.eff[L]||m.eff.en); txt("pmTitle",m.title[L]||m.title.en);
+    txt("pmDesc",m.desc[L]||m.desc.en); txt("pmConnLabel",m.clabel[L]||m.clabel.en);
+    var conn=document.getElementById("pmConn");
+    if(conn){ conn.classList.toggle("radio",m.conn==="radio"); conn.classList.toggle("direct",m.conn==="direct"); }
+  }
+  document.querySelectorAll(".pm-btn").forEach(function(b){
+    b.addEventListener("click", function(){
+      pmCur=b.dataset.mode; pmRender(pmCur);
+      document.querySelectorAll(".pm-btn").forEach(function(x){ x.classList.toggle("on", x===b); });
+    });
+  });
+  document.querySelectorAll(".langbtn").forEach(function(b){
+    b.addEventListener("click", function(){ setTimeout(function(){ pmRender(pmCur); }, 0); });
+  });
+  pmRender("normal");
+</script>
+</body>
+</html>

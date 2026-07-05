@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!-- САЙТ v1 — тёмный «glassmorphism» стиль (последняя версия первого стиля). v2 = index.html. Использует site.js -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Kasabutski — Portfolio (v1)</title>
+<style>
+  :root{--bg:#0a0e14;--panel:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);
+    --text:#eaf0f7;--muted:#93a1b5;--accent:#5aa9ff;--accent2:#7ef0c0;--pink:#ff86d9;--gold:#ffd479}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  .bg{position:fixed;inset:0;z-index:-2;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:float 18s ease-in-out infinite}
+  .blob.a{width:520px;height:520px;background:#1e5cff;top:-160px;left:-120px}
+  .blob.b{width:460px;height:460px;background:#0e8f6f;top:34%;right:-160px;animation-delay:-6s}
+  .blob.c{width:420px;height:420px;background:#7a1e8f;bottom:-160px;left:20%;animation-delay:-11s}
+  .grid-overlay{position:fixed;inset:0;z-index:-1;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:radial-gradient(circle at 50% 20%,#000,transparent 85%)}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:12px;height:54px;padding:0 20px;
+    background:rgba(10,14,20,.72);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-weight:800;font-size:15px;color:var(--text)}
+  .nav .navlinks{display:flex;gap:2px;margin:0 auto}
+  .nav a.nl{color:var(--muted);font-weight:600;font-size:13.5px;padding:6px 11px;border-radius:8px;white-space:nowrap;transition:color .15s,background .15s}
+  .nav a.nl:hover{color:var(--text);background:var(--panel)}
+  .langbar2{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:24px;padding:3px}
+  .langbtn{border:none;background:transparent;color:var(--muted);font-weight:800;font-size:13px;padding:5px 12px;border-radius:24px;cursor:pointer}
+  .langbtn.on{background:var(--accent);color:#04121f}
+  @media(max-width:860px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
+  header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative;padding:80px 0 30px}
+  .eyebrow{display:inline-block;color:var(--accent2);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:12.5px;
+    border:1px solid var(--line);border-radius:40px;padding:7px 16px;margin:0 auto;background:var(--panel);backdrop-filter:blur(6px)}
+  h1{font-size:clamp(48px,10vw,100px);line-height:.98;margin:22px 0 10px;font-weight:850;letter-spacing:-.02em;
+    background:linear-gradient(100deg,#fff 0%,#8ab8ff 40%,#7ef0c0 70%,#fff 100%);background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 7s linear infinite}
+  @keyframes shimmer{to{background-position:220% center}}
+  .tagline{color:#c4d1e2;font-size:clamp(17px,2.4vw,22px);max-width:700px;margin:0 auto}
+  .loc{color:var(--muted);margin-top:16px;font-size:15px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:600;font-size:15px;
+    border:1px solid var(--line);background:var(--panel);color:var(--text);backdrop-filter:blur(6px);cursor:pointer;
+    transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+  .btn:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 30px -12px rgba(90,169,255,.7)}
+  .btn.primary{background:linear-gradient(120deg,#5aa9ff,#7ef0c0);color:#04121f;border-color:transparent;font-weight:700}
+  section{padding:64px 0}
+  .kicker{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;margin-bottom:10px}
+  h2{font-size:clamp(28px,4vw,40px);font-weight:820;letter-spacing:-.01em;margin-bottom:8px}
+  .sub{color:var(--muted);margin-bottom:30px;font-size:16px}
+  .about p{color:#c9d5e4;max-width:820px;font-size:18px}
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .skill{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;backdrop-filter:blur(8px);transition:transform .16s ease,border-color .16s ease}
+  .skill:hover{transform:translateY(-3px);border-color:var(--accent2)}
+  .skill h4{color:var(--accent);font-size:13.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .skill span{color:#c9d5e4;font-size:15px}
+  .glance{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+  .gcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 18px;backdrop-filter:blur(8px);text-align:center}
+  .gcard .big{font-size:18px;font-weight:800}.gcard .lbl{color:var(--muted);font-size:13px;margin-top:3px;line-height:1.4}
+  @media(max-width:720px){.glance{grid-template-columns:repeat(2,1fr)}}
+  .timeline{position:relative;margin-top:6px;padding-left:8px}
+  .timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--accent),var(--accent2))}
+  .tstep{position:relative;padding:0 0 26px 30px}
+  .tstep::before{content:"";position:absolute;left:1px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(90,169,255,.18)}
+  .tstep .yr{font-weight:800;color:var(--accent2);font-size:14px}.tstep h4{font-size:17px;margin:2px 0 3px}.tstep p{color:var(--muted);font-size:14.5px}
+  .cred{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-top:20px;backdrop-filter:blur(8px)}
+  .emblem{width:104px;height:104px;border-radius:24px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:linear-gradient(150deg,rgba(90,169,255,.22),rgba(126,240,192,.12));border:1px solid var(--line)}
+  .emblem .cap2{font-size:44px}.emblem .fl{font-size:17px}.emblem .yr{font-size:11px;font-weight:800;color:var(--accent2)}
+  .cred .ctxt h4{font-size:18px}.cred .ctxt p{color:var(--muted);font-size:14.5px;margin-top:4px}
+  .subh{font-size:20px;font-weight:800;margin:34px 0 6px}
+  .imgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .imcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px)}
+  .imcard .ph{aspect-ratio:4/3;background:#0c1119;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .imcard .ph img{width:100%;height:100%;object-fit:cover}
+  .imcard .cap{padding:12px 16px;color:var(--muted);font-size:14px}
+  .feature{background:var(--panel);border:1px solid var(--line);border-radius:22px;overflow:hidden;backdrop-filter:blur(10px);margin-top:18px}
+  .fhead{display:flex;align-items:center;gap:16px;padding:22px 24px 6px}
+  .fhead img{width:56px;height:56px;border-radius:14px;background:#fff}
+  .fhead h3{font-size:21px}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:20px;margin-top:6px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+  .badge.dev{color:var(--pink);background:rgba(255,134,217,.12);border-color:rgba(255,134,217,.32)}
+  .badge.proto{color:var(--gold);background:rgba(255,212,121,.12);border-color:rgba(255,212,121,.32)}
+  .carousel{padding:16px 24px 4px}
+  .stage{position:relative;background:#0c1119;border:1px solid var(--line);border-radius:14px;height:380px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none}
+  .slide.active{opacity:1;pointer-events:auto}.slide img{max-width:100%;max-height:100%;object-fit:contain}
+  .nvb{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(10,14,20,.7);color:var(--text);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .15s,transform .15s}
+  .nvb:hover{background:var(--accent);color:#04121f;transform:translateY(-50%) scale(1.08)}.nvb.prev{left:14px}.nvb.next{right:14px}
+  .cap-bar{color:#c3cede;font-size:14.5px;min-height:46px;padding:14px 6px 2px;text-align:center}
+  .dots{display:flex;gap:8px;justify-content:center;padding:2px 0 8px;flex-wrap:wrap}
+  .dot{width:9px;height:9px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:transform .15s,background .15s}
+  .dot.on{background:var(--accent);transform:scale(1.3)}
+  .fbody{padding:8px 24px 24px}.fbody p{color:#c3cede;font-size:16px}.fbody p+p{margin-top:12px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12px;color:#cfe0f2;background:rgba(90,169,255,.09);border:1px solid var(--line);padding:4px 10px;border-radius:7px}
+  .dl-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .links{margin-top:16px;font-size:14.5px;font-weight:600}
+  .code-card{background:#0b1019;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:26px}
+  .code-top{display:flex;align-items:center;gap:8px;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .dotmac{width:12px;height:12px;border-radius:50%}.dotmac.r{background:#ff5f57}.dotmac.y{background:#febc2e}.dotmac.g{background:#28c840}
+  .code-file{margin-left:10px;color:var(--muted);font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{margin:0;padding:20px 22px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.75;color:#d6e2f0}
+  .c-com{color:#6b7f96;font-style:italic}.c-key{color:#ff86d9}.c-fn{color:#7ef0c0}.c-num{color:#ffd479}.c-typ{color:#5aa9ff}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:720px){.duo{grid-template-columns:1fr}}
+  .game{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;backdrop-filter:blur(10px);transition:transform .18s ease,border-color .18s ease}
+  .game:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .game .art{height:176px;display:flex;align-items:center;justify-content:center;background:#0c1119}
+  .game .art img{width:104px;height:104px;border-radius:24px;object-fit:cover}.game .art .emoji{font-size:54px}
+  .game .gbody{padding:20px 22px 24px}.game h3{font-size:19px}.game p{color:#c3cede;font-size:14.5px;margin-top:8px}
+  footer{padding:80px 0;text-align:center;border-top:1px solid var(--line);margin-top:20px}
+  footer h2{margin-bottom:14px}.foot-note{color:var(--muted);font-size:13px;margin-top:24px;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="bg"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+<div class="grid-overlay"></div>
+
+<nav class="nav">
+  <a href="#top" class="brand">Yan Kasabutski</a>
+  <div class="navlinks">
+    <a class="nl" href="#about" data-i18n="nav_about">About</a>
+    <a class="nl" href="#skills" data-i18n="nav_skills">Skills</a>
+    <a class="nl" href="#software" data-i18n="nav_software">System</a>
+    <a class="nl" href="manual.html" data-i18n="nav_manual">Manual</a>
+    <a class="nl" href="#games" data-i18n="nav_games">Games</a>
+    <a class="nl" href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div class="langbar2"><button class="langbtn on" data-lang="en">EN</button><button class="langbtn" data-lang="pl">PL</button></div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-i18n="hero_eyebrow">Software · iOS/macOS · Embedded & IoT</span>
+    <h1 class="reveal">Yan Kasabutski</h1>
+    <p class="tagline reveal" data-i18n="hero_tagline">I build complete products end to end — desktop applications, native Apple apps and games, and low-power embedded systems.</p>
+    <p class="loc reveal" data-i18n="hero_loc">From Belarus 🇧🇾 · based in Košice, Slovakia · open to relocation across Poland</p>
+    <div class="cta reveal">
+      <a class="btn primary" href="mailto:yan6050773@gmail.com" data-i18n="btn_email">Email me</a>
+      <a class="btn" href="https://github.com/VenzeLGeek" target="_blank" rel="noopener">⌥ GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/yan-kasabutski-82170b38a/" target="_blank" rel="noopener">in LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<section id="skills" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker reveal" data-i18n="sk_kicker">Skills</div>
+    <h2 class="reveal" data-i18n="sk_h2">What I work with</h2>
+    <p class="sub reveal" data-i18n="sk_sub">My most valuable asset.</p>
+    <div class="skills">
+      <div class="skill reveal"><h4 data-i18n="sk_lang_h">Languages</h4><span data-i18n="sk_lang_v">Python, Swift, C++, C, C#, JavaScript</span></div>
+      <div class="skill reveal"><h4 data-i18n="sk_app_h">App Development</h4><span data-i18n="sk_app_v">Cross-platform desktop apps (Python); native iOS/macOS apps & games (Swift, SwiftUI, Xcode)</span></div>
+      <div class="skill reveal"><h4 data-i18n="sk_emb_h">Embedded / IoT</h4><span data-i18n="sk_emb_v">ESP32, C++ (Arduino), BLE via NimBLE, low-power design, LittleFS, NVS, sensors (I2C, ADC)</span></div>
+      <div class="skill reveal"><h4 data-i18n="sk_tool_h">Tools & Data</h4><span data-i18n="sk_tool_v">Git, Arduino IDE, VS Code, REST/JSON/CSV, SQLite, MATLAB, web (HTML/CSS/JS)</span></div>
+      <div class="skill reveal"><h4 data-i18n="sk_hw_h">Hardware & Lab</h4><span data-i18n="sk_hw_v">Multimeter & oscilloscope, soldering, console flashing & repair, 3D printing, SolidWorks</span></div>
+    </div>
+    <div class="glance">
+      <div class="gcard reveal"><div class="big" data-i18n="gl1_b">Since 2018</div><div class="lbl" data-i18n="gl1_l">7 years writing code</div></div>
+      <div class="gcard reveal"><div class="big" data-i18n="gl2_b">EU B.Sc. 2026</div><div class="lbl" data-i18n="gl2_l">Computer Networks, TUKE 🇸🇰🇪🇺</div></div>
+      <div class="gcard reveal"><div class="big">Swift · Python · C++</div><div class="lbl" data-i18n="gl3_l">core languages I work in</div></div>
+      <div class="gcard reveal"><div class="big">🇵🇱 🇸🇰 🇷🇺 🇬🇧</div><div class="lbl" data-i18n="gl4_l">Polish · Slovak · Russian · English</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="kicker reveal" data-i18n="ab_kicker">About</div>
+    <h2 class="reveal" data-i18n="ab_h2">Engineer by training, builder by habit.</h2>
+    <p class="reveal" data-i18n="ab_p">I'm 23, originally from Belarus and based in Košice, Slovakia...</p>
+    <div class="timeline reveal" style="margin-top:40px">
+      <div class="tstep"><div class="yr">2018 – 2019</div><h4 data-i18n="jr1_h">Started coding</h4><p data-i18n="jr1_p"></p></div>
+      <div class="tstep"><div class="yr">2022</div><h4 data-i18n="jr2_h">University & more projects</h4><p data-i18n="jr2_p"></p></div>
+      <div class="tstep"><div class="yr">2025</div><h4 data-i18n="jr3_h">Native Apple development</h4><p data-i18n="jr3_p"></p></div>
+      <div class="tstep"><div class="yr">2026</div><h4 data-i18n="jr4_h">EU B.Sc. & a complete IoT system 🇸🇰🇪🇺</h4><p data-i18n="jr4_p"></p></div>
+    </div>
+    <div class="cred reveal">
+      <div class="emblem"><span class="cap2">🎓</span><span class="fl">🇸🇰 🇪🇺</span><span class="yr">2026</span></div>
+      <div class="ctxt"><h4 data-i18n="cred_h">EU-accredited Bachelor's degree</h4><p data-i18n="cred_p"></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="software">
+  <div class="wrap">
+    <div class="kicker reveal" data-i18n="sys_kicker">Flagship project</div>
+    <h2 class="reveal" data-i18n="sys_h2">Not just an app — a full IoT system</h2>
+    <p class="sub reveal" data-i18n="sys_sub"></p>
+    <div class="subh reveal" data-i18n="sys_hw_h">A real, working system</div>
+    <p class="sub reveal" data-i18n="sys_hw_sub"></p>
+    <div class="imgrid reveal">
+      <div class="imcard"><div class="ph"><img src="images/deploy-plant.png" alt="plant"></div><div class="cap" data-i18n="hw1_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/node-breadboard.png" alt="node"></div><div class="cap" data-i18n="hw2_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/sys-node.png" alt="node2"></div><div class="cap" data-i18n="hw3_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/esp32-housing.png" alt="enclosure"></div><div class="cap" data-i18n="hw4_c"></div></div>
+    </div>
+    <div class="feature reveal">
+      <div class="fhead"><img src="images/esp32-logo.png" alt="logo"><div><h3 data-i18n="sys_title">ESP32 Monitor — the desktop app</h3><span class="badge" data-i18n="sys_badge"></span></div></div>
+      <div class="carousel">
+        <div class="stage">
+          <button class="nvb prev" aria-label="Previous">‹</button>
+          <figure class="slide" data-cap-en="Main dashboard — live temperature, humidity and soil moisture, over BLE." data-cap-pl="Główny pulpit — temperatura, wilgotność i wilgotność gleby, przez BLE."><img src="images/esp32-1.png" alt="dashboard"></figure>
+          <figure class="slide" data-cap-en="Recording statistics — avg / min / max and a detailed CSV table." data-cap-pl="Statystyki zapisu — śr. / min / maks. i szczegółowa tabela CSV."><img src="images/esp32-2.png" alt="stats"></figure>
+          <figure class="slide" data-cap-en="Recording setup — file, interval, power mode and battery estimate." data-cap-pl="Konfiguracja zapisu — plik, interwał, tryb mocy i szacowany czas."><img src="images/esp32-3.png" alt="setup"></figure>
+          <button class="nvb next" aria-label="Next">›</button>
+        </div>
+        <div class="cap-bar"></div><div class="dots"></div>
+      </div>
+      <div class="fbody">
+        <p data-i18n="sys_p1"></p>
+        <p data-i18n="sys_p2"></p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">ESP32</span><span class="tag">BLE</span><span class="tag">Low-power</span><span class="tag">SolidWorks</span><span class="tag">MATLAB</span></div>
+        <div class="dl-row">
+          <a class="btn primary" href="downloads/ESP32-Monitor-Windows.exe" download data-i18n="btn_win">Download for Windows</a>
+          <a class="btn" href="downloads/ESP32-Monitor-macOS.zip" download data-i18n="btn_mac">Download for macOS</a>
+          <a class="btn" href="manual.html" data-i18n="btn_openmanual">Read the user manual →</a>
+        </div>
+        <div class="links"><a href="https://github.com/VenzeLGeek/ESP32-Monitor" target="_blank" rel="noopener" data-i18n="link_github">Source code on GitHub →</a></div>
+      </div>
+    </div>
+    <div class="subh reveal" data-i18n="sys_val_h">Measured, not estimated</div>
+    <p class="sub reveal" data-i18n="sys_val_sub"></p>
+    <div class="imgrid reveal">
+      <div class="imcard"><div class="ph"><img src="images/current-deep.png" alt="deep"></div><div class="cap" data-i18n="v1_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/current-normal.png" alt="normal"></div><div class="cap" data-i18n="v2_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/result-soil.png" alt="soil"></div><div class="cap" data-i18n="v3_c"></div></div>
+      <div class="imcard"><div class="ph"><img src="images/thesis.jpg" alt="thesis"></div><div class="cap" data-i18n="v4_c"></div></div>
+    </div>
+    <div class="code-card reveal">
+      <div class="code-top"><span class="dotmac r"></span><span class="dotmac y"></span><span class="dotmac g"></span><span class="code-file">ESP32_DevKit.ino — my firmware</span></div>
+<pre><span class="c-com">// Clean radio teardown before deep sleep. From my ESP32 firmware.</span>
+<span class="c-typ">void</span> <span class="c-fn">enterDeepSleep</span>(<span class="c-typ">uint32_t</span> seconds) {
+  <span class="c-fn">saveState</span>();                        <span class="c-com">// persist epoch + config to NVS</span>
+  <span class="c-key">if</span> (g_nimbleInited) {
+    NimBLEDevice::<span class="c-fn">getAdvertising</span>()-&gt;<span class="c-fn">stop</span>();
+    NimBLEDevice::<span class="c-fn">deinit</span>(<span class="c-key">true</span>);      <span class="c-com">// release the BLE controller</span>
+  }
+  WiFi.<span class="c-fn">mode</span>(WIFI_OFF);
+  <span class="c-fn">esp_bt_controller_disable</span>();
+  <span class="c-fn">delay</span>(<span class="c-num">300</span>);                       <span class="c-com">// let the 3.3 V rail recover</span>
+  <span class="c-fn">esp_sleep_enable_timer_wakeup</span>((<span class="c-typ">uint64_t</span>)seconds * <span class="c-num">1000000ULL</span>);
+  <span class="c-fn">esp_deep_sleep_start</span>();             <span class="c-com">// ~64 mA -> ~6.9 mA (~89% less)</span>
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="wrap">
+    <div class="kicker reveal" data-i18n="gm_kicker">My Games</div>
+    <h2 class="reveal" data-i18n="gm_h2">Games I build in Swift</h2>
+    <p class="sub reveal" data-i18n="gm_sub"></p>
+    <div class="duo">
+      <article class="game reveal"><div class="art"><img src="images/frog-logo.png" alt="Frogram"></div><div class="gbody"><h3>Frogram Operating Commander <span class="badge dev" data-i18n="badge_dev">In development</span></h3><p data-i18n="frog_p"></p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_devlog">Art & devlog →</a></div></div></article>
+      <article class="game reveal"><div class="art"><img src="images/hockey-logo.png" alt="Hockey"></div><div class="gbody"><h3>Crazy International Hockey <span class="badge dev" data-i18n="badge_dev">In development</span></h3><p data-i18n="hockey_p"></p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_follow">Follow progress →</a></div></div></article>
+    </div>
+    <p class="sub reveal" data-i18n="proto_head" style="margin:34px 0 18px">Earlier prototypes</p>
+    <div class="duo">
+      <article class="game reveal"><div class="art"><span class="emoji">🧠</span></div><div class="gbody"><h3>Escape from the mind <span class="badge proto" data-i18n="badge_proto1">Prototype · 2018–19</span></h3><p data-i18n="escape_p"></p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_trailer">See the trailer →</a></div></div></article>
+      <article class="game reveal"><div class="art"><span class="emoji">🎮</span></div><div class="gbody"><h3>Console History Clicker <span class="badge proto" data-i18n="badge_proto2">Prototype · 2022</span></h3><p data-i18n="clicker_p"></p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_more">More on Instagram →</a></div></div></article>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="kicker reveal" data-i18n="ft_kicker">Get in touch</div>
+    <h2 class="reveal" data-i18n="ft_h2">Let's build something.</h2>
+    <p class="sub reveal" data-i18n="ft_sub"></p>
+    <div class="cta reveal" style="justify-content:center">
+      <a class="btn primary" href="mailto:yan6050773@gmail.com">✉ yan6050773@gmail.com</a>
+      <a class="btn" href="tel:+48512030374">📞 +48 512 030 374</a>
+    </div>
+    <p class="foot-note reveal">+48 512 030 374 · +421 950 373 353 · yan6050773@gmail.com<br>Košice, Slovakia · from Belarus 🇧🇾 · open to relocation across Poland</p>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

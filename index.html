@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!-- Портфолио-резюме Яна Kasabutski. {INSTAGRAM} {CV} — замени на свои. Публикация: перетащи папку portfolio на app.netlify.com/drop -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Kasabutski — Software Developer · CV</title>
+<style>
+  :root{--canvas:#08070c;--sheet:#110d18;--ink:#f6f2fa;--muted:#a99fb8;--accent:#ff4d9d;--accent2:#b06bff;
+    --line:#2b2338;--chip:#1a1428;--serif:"Iowan Old Style","Palatino Linotype","Palatino","Georgia",serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--canvas);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:12px;height:52px;padding:0 22px;
+    background:rgba(8,7,12,.82);backdrop-filter:saturate(160%) blur(16px);-webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink)}
+  .nav .navlinks{display:flex;gap:2px;margin:0 auto}
+  .nav a.nl{color:var(--ink);opacity:.78;font-size:14px;padding:6px 11px;border-radius:8px;white-space:nowrap;transition:opacity .15s,background .15s}
+  .nav a.nl:hover{opacity:1;background:rgba(0,0,0,.05)}
+  .langbar2{display:flex;gap:2px;background:rgba(0,0,0,.06);border-radius:20px;padding:3px}
+  .langbtn{border:none;background:transparent;color:var(--ink);opacity:.7;font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:16px;cursor:pointer}
+  .langbtn.on{background:var(--accent);color:#fff;opacity:1}
+  @media(max-width:880px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
+  /* SHEET */
+  .sheet{max-width:1060px;margin:78px auto 54px;background:var(--sheet);border:1px solid var(--line);border-radius:22px;
+    box-shadow:0 40px 120px -40px rgba(255,77,157,.25);overflow:hidden}
+  /* HEADER */
+  .rhead{display:flex;gap:26px;align-items:center;flex-wrap:wrap;padding:46px 50px 26px}
+  .mono{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:var(--serif);font-size:36px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:0 14px 40px -10px rgba(255,77,157,.6)}
+  .htext h1{font-family:var(--serif);font-size:clamp(34px,5vw,52px);line-height:1;font-weight:700;letter-spacing:-.01em;
+    background:linear-gradient(120deg,#fff,#ff8bc4 55%,#c79bff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .htext .role{color:var(--accent);font-weight:600;font-size:16px;margin-top:8px}
+  .htext .tl{color:var(--muted);font-size:16px;margin-top:8px;max-width:600px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-size:13px;background:var(--chip);border:1px solid var(--line);border-radius:20px;padding:5px 12px;color:var(--ink)}
+  .rule{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px);margin:0 50px}
+  /* LAYOUT */
+  .layout{display:grid;grid-template-columns:272px 1fr;gap:46px;padding:30px 50px 50px}
+  @media(max-width:820px){.layout{grid-template-columns:1fr;gap:34px;padding:26px 24px 36px}}
+  .aside{align-self:start}
+  @media(min-width:821px){.aside{position:sticky;top:70px}}
+  .avail{display:inline-flex;align-items:center;gap:8px;background:rgba(176,107,255,.12);color:#cba0ff;border:1px solid rgba(176,107,255,.35);border-radius:20px;padding:6px 13px;font-size:13px;font-weight:600;margin-bottom:22px}
+  .avail .d{width:8px;height:8px;border-radius:50%;background:#b06bff;box-shadow:0 0 0 3px rgba(176,107,255,.25)}
+  .block{margin-bottom:24px}
+  .blabel{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);font-weight:700;margin-bottom:10px}
+  .clist a,.clist div{display:block;color:var(--ink);font-size:14.5px;padding:3px 0}
+  .clist a:hover{color:var(--accent)}
+  .sk{margin-bottom:12px}
+  .sk h5{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+  .sk span{font-size:14px;color:var(--ink)}
+  .stamp{display:inline-block;transform:rotate(-5deg);border:2px solid var(--accent);color:var(--accent);border-radius:12px;
+    padding:8px 12px;font-weight:700;font-size:13px;margin-top:10px;font-family:var(--serif);letter-spacing:.02em}
+  .lk{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;padding:6px 0;margin-right:14px}
+  /* MAIN */
+  .msec{margin-bottom:42px}
+  .kick{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:6px}
+  .msec h2{font-family:var(--serif);font-size:29px;font-weight:700;line-height:1.1;margin-bottom:12px;letter-spacing:-.01em}
+  .msec .lead{font-size:17.5px;color:var(--ink);line-height:1.6}
+  .msec .lead.mut{color:var(--muted)}
+  .subh{font-family:var(--serif);font-size:20px;font-weight:700;margin:26px 0 6px}
+  .note{color:var(--muted);font-size:15px;margin-bottom:14px}
+  /* TIMELINE */
+  .tl-item{display:grid;grid-template-columns:104px 1fr;gap:16px;padding:14px 0;border-top:1px dotted var(--line)}
+  .tl-item .yr{color:var(--accent);font-weight:700;font-size:14px}
+  .tl-item h4{font-size:17px;font-weight:700;margin-bottom:2px}
+  .tl-item p{color:var(--muted);font-size:15px}
+  @media(max-width:560px){.tl-item{grid-template-columns:1fr;gap:2px}}
+  /* IMAGES */
+  .imgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .imcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--chip)}
+  .imcard .ph{aspect-ratio:4/3;background:var(--chip);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .imcard .ph img{width:100%;height:100%;object-fit:cover}
+  .imcard .cap{padding:11px 14px;color:var(--muted);font-size:13.5px}
+  /* CAROUSEL */
+  .feature{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--chip);margin-top:16px}
+  .fhead{display:flex;align-items:center;gap:14px;padding:20px 22px 4px}
+  .fhead img{width:52px;height:52px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+  .fhead h3{font-family:var(--serif);font-size:19px;font-weight:700}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:5px;background:var(--chip);color:var(--muted);border:1px solid var(--line)}
+  .badge.dev{color:#ff8bc4;background:rgba(255,77,157,.12);border-color:rgba(255,77,157,.35)}
+  .badge.proto{color:#c79bff;background:rgba(176,107,255,.12);border-color:rgba(176,107,255,.35)}
+  .carousel{padding:14px 22px 4px}
+  .stage{position:relative;background:var(--chip);border-radius:14px;height:340px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s ease;pointer-events:none}
+  .slide.active{opacity:1;pointer-events:auto}
+  .slide img{max-width:100%;max-height:100%;object-fit:contain}
+  .nvb{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(26,20,40,.85);color:var(--ink);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+  .nvb:hover{transform:translateY(-50%) scale(1.08);background:var(--accent);color:#fff}.nvb.prev{left:12px}.nvb.next{right:12px}
+  .cap-bar{color:var(--muted);font-size:14px;min-height:42px;padding:12px 6px 2px;text-align:center}
+  .dots{display:flex;gap:7px;justify-content:center;padding:2px 0 8px;flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:transform .15s,background .15s}
+  .dot.on{background:var(--accent);transform:scale(1.3)}
+  .fbody{padding:8px 22px 24px}.fbody p{color:var(--ink);font-size:16px;line-height:1.6}.fbody p+p{margin-top:12px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .tag{font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--line);padding:4px 10px;border-radius:8px}
+  .dl-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:980px;font-weight:600;font-size:14.5px;background:var(--accent);color:#fff;cursor:pointer;transition:opacity .15s}
+  .btn:hover{opacity:.88}
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .btn.ghost:hover{background:rgba(255,77,157,.12)}
+  .links{margin-top:16px;font-size:14.5px;font-weight:600}
+  .code-card{background:#0c0912;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:20px}
+  .code-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .dotmac{width:11px;height:11px;border-radius:50%}.dotmac.r{background:#ff5f57}.dotmac.y{background:#febc2e}.dotmac.g{background:#28c840}
+  .code-file{margin-left:8px;color:#9a9488;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{margin:0;padding:18px 20px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;color:#e8e4da}
+  .c-com{color:#8a8474;font-style:italic}.c-key{color:#e0846b}.c-fn{color:#7bb89a}.c-num{color:#e0b060}.c-typ{color:#7aa7d0}
+  /* GAMES */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:600px){.duo{grid-template-columns:1fr}}
+  .game{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--chip);transition:transform .16s ease}
+  .game:hover{transform:translateY(-3px)}
+  .game .art{height:150px;display:flex;align-items:center;justify-content:center;background:var(--chip)}
+  .game .art img{width:88px;height:88px;border-radius:20px;object-fit:cover;box-shadow:0 10px 24px -10px rgba(0,0,0,.3)}
+  .game .art .emoji{font-size:46px}
+  .game .gbody{padding:16px 18px 20px}.game h3{font-family:var(--serif);font-size:17px;font-weight:700}
+  .game p{color:var(--muted);font-size:13.5px;margin-top:7px}
+  footer{text-align:center;padding:20px 50px 50px}
+  .foot-note{color:var(--muted);font-size:13.5px;margin-top:16px;line-height:1.8}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="#top" class="brand">Yan Kasabutski</a>
+  <div class="navlinks">
+    <a class="nl" href="#summary" data-i18n="as_summary">Summary</a>
+    <a class="nl" href="#skills" data-i18n="nav_skills">Skills</a>
+    <a class="nl" href="#project" data-i18n="nav_software">System</a>
+    <a class="nl" href="manual.html" data-i18n="nav_manual">Manual</a>
+    <a class="nl" href="#games" data-i18n="nav_games">Games</a>
+    <a class="nl" href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div class="langbar2">
+    <button class="langbtn on" data-lang="en">EN</button>
+    <button class="langbtn" data-lang="pl">PL</button>
+  </div>
+</nav>
+
+<div class="sheet" id="top">
+  <div class="rhead">
+    <div class="mono">YK</div>
+    <div class="htext">
+      <h1>Yan Kasabutski</h1>
+      <div class="role" data-i18n="hero_eyebrow">Software · iOS/macOS · Embedded & IoT</div>
+      <p class="tl" data-i18n="hero_tagline">I build complete products end to end — desktop applications, native Apple apps and games, and low-power embedded systems.</p>
+      <div class="chips">
+        <span class="chip">🎓 EU B.Sc. 2026</span>
+        <span class="chip">⌨️ <span data-i18n="chip_since">coding since 2018</span></span>
+        <span class="chip">📍 Košice → 🇵🇱</span>
+        <span class="chip">🗣️ 🇵🇱 🇸🇰 🇷🇺 🇬🇧</span>
+      </div>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="layout">
+    <!-- ASIDE -->
+    <aside class="aside">
+      <div class="avail reveal"><span class="d"></span><span data-i18n="as_avail">Available for work</span></div>
+
+      <div class="block reveal">
+        <div class="blabel" data-i18n="as_contact">Contact</div>
+        <div class="clist">
+          <a href="mailto:yan6050773@gmail.com">yan6050773@gmail.com</a>
+          <a href="tel:+48512030374">+48 512 030 374</a>
+          <a href="tel:+421950373353">+421 950 373 353</a>
+          <div>Košice, Slovakia 🇧🇾→🇸🇰</div>
+        </div>
+      </div>
+
+      <div class="block reveal">
+        <div class="blabel" data-i18n="nav_skills">Skills</div>
+        <div class="sk"><h5 data-i18n="sk_lang_h">Languages</h5><span data-i18n="sk_lang_v">Python, Swift, C++, C, C#, JavaScript</span></div>
+        <div class="sk"><h5 data-i18n="sk_app_h">App Development</h5><span data-i18n="sk_app_v">Cross-platform desktop apps (Python); native iOS/macOS apps & games (Swift, SwiftUI, Xcode)</span></div>
+        <div class="sk"><h5 data-i18n="sk_emb_h">Embedded / IoT</h5><span data-i18n="sk_emb_v">ESP32, C++ (Arduino), BLE via NimBLE, low-power design, LittleFS, NVS, sensors (I2C, ADC)</span></div>
+        <div class="sk"><h5 data-i18n="sk_tool_h">Tools & Data</h5><span data-i18n="sk_tool_v">Git, Arduino IDE, VS Code, REST/JSON/CSV, SQLite, MATLAB, web (HTML/CSS/JS)</span></div>
+        <div class="sk"><h5 data-i18n="sk_hw_h">Hardware & Lab</h5><span data-i18n="sk_hw_v">Multimeter & oscilloscope, soldering, console flashing & repair, 3D printing, SolidWorks</span></div>
+      </div>
+
+      <div class="block reveal">
+        <div class="blabel" data-i18n="as_langs">Languages</div>
+        <div class="sk"><span data-i18n="gl4_l">Polish · Slovak · Russian · English</span></div>
+      </div>
+
+      <div class="block reveal">
+        <div class="blabel" data-i18n="as_edu">Education</div>
+        <div class="sk"><span style="font-weight:600" data-i18n="edu_line">B.Sc. Computer Networks & Engineering</span></div>
+        <div class="note" style="margin:2px 0 0" data-i18n="edu_uni">Technical University of Košice · 2022–2026</div>
+        <div class="stamp">EU-accredited 🇸🇰🇪🇺</div>
+      </div>
+
+      <div class="block reveal">
+        <div class="blabel" data-i18n="as_links">Links</div>
+        <a class="lk" href="https://github.com/VenzeLGeek" target="_blank" rel="noopener">⌥ GitHub</a>
+        <a class="lk" href="https://www.linkedin.com/in/yan-kasabutski-82170b38a/" target="_blank" rel="noopener">in LinkedIn</a>
+        <a class="lk" href="{INSTAGRAM}" target="_blank" rel="noopener">◎ Instagram</a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <section class="msec reveal" id="summary">
+        <div class="kick" data-i18n="ab_kicker">About</div>
+        <h2 data-i18n="ab_h2">Engineer by training, builder by habit.</h2>
+        <p class="lead" data-i18n="ab_p">I'm 23, originally from Belarus 🇧🇾 and based in Košice, Slovakia. I've been coding since 2018 — I started by building game prototypes for myself in Construct, which is where I first learned to make software from nothing. In 2022 I began my B.Sc. in Computer Networks & Engineering at the Technical University of Košice. I like owning a product all the way through — from the circuit board and firmware to the interface a person actually touches. Away from the keyboard I'm a Nintendo collector and console tinkerer — I repair and flash consoles — which is exactly where my love of games comes from.</p>
+      </section>
+
+      <section class="msec" id="skills"></section>
+
+      <section class="msec reveal" id="project">
+        <div class="kick" data-i18n="sys_kicker">Selected project</div>
+        <h2 data-i18n="sys_h2">Not just an app — a full IoT system</h2>
+        <p class="lead mut" data-i18n="sys_sub">My B.Sc. thesis: a wireless sensor network I designed, built and validated end to end — firmware, a cross-platform app, and real hardware I deployed in the field.</p>
+
+        <div class="subh" data-i18n="sys_hw_h">A real, working system</div>
+        <p class="note" data-i18n="sys_hw_sub">The hardware I designed, built and deployed.</p>
+        <div class="imgrid reveal">
+          <div class="imcard"><div class="ph"><img src="images/deploy-plant.png" alt="on plant"></div><div class="cap" data-i18n="hw1_c">Deployed on a live plant — measuring real soil moisture.</div></div>
+          <div class="imcard"><div class="ph"><img src="images/node-breadboard.png" alt="node"></div><div class="cap" data-i18n="hw2_c">A sensor node — ESP32, sensors and a battery powerbank.</div></div>
+          <div class="imcard"><div class="ph"><img src="images/sys-node.png" alt="node+sensor"></div><div class="cap" data-i18n="hw3_c">Board wired to the capacitive soil-moisture sensor.</div></div>
+          <div class="imcard"><div class="ph"><img src="images/esp32-housing.png" alt="enclosure"></div><div class="cap" data-i18n="hw4_c">In its 3D-printed PETG enclosure (SolidWorks).</div></div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="fhead"><img src="images/esp32-logo.png" alt="logo"><div><h3 data-i18n="sys_title">ESP32 Monitor — the desktop app</h3><span class="badge" data-i18n="sys_badge">Complete & defended · firmware + app + hardware</span></div></div>
+          <div class="carousel">
+            <div class="stage">
+              <button class="nvb prev" aria-label="Previous">‹</button>
+              <figure class="slide" data-cap-en="Main dashboard — live temperature, humidity and soil moisture, plotted in real time over BLE." data-cap-pl="Główny pulpit — temperatura, wilgotność i wilgotność gleby, rysowane na żywo przez BLE."><img src="images/esp32-1.png" alt="dashboard"></figure>
+              <figure class="slide" data-cap-en="Recording statistics — avg / min / max, threshold breaches and a detailed CSV table." data-cap-pl="Statystyki zapisu — śr. / min / maks., przekroczenia progów i szczegółowa tabela CSV."><img src="images/esp32-2.png" alt="stats"></figure>
+              <figure class="slide" data-cap-en="Recording setup — file, interval, power mode and battery-life estimate, per node over BLE." data-cap-pl="Konfiguracja zapisu — plik, interwał, tryb mocy i szacowany czas pracy, per węzeł przez BLE."><img src="images/esp32-3.png" alt="setup"></figure>
+              <button class="nvb next" aria-label="Next">›</button>
+            </div>
+            <div class="cap-bar"></div>
+            <div class="dots"></div>
+          </div>
+          <div class="fbody">
+            <p data-i18n="sys_p1"><strong>The system has three parts:</strong> ESP32 sensor nodes that measure and send data over Bluetooth; a cross-platform desktop app (Windows & macOS) for live values, graphs and cloud-synced storage; and the Sensirion MyAmbience mobile app for a quick phone view. I built every layer — the C++ firmware (~1,700 lines), the Python app (~9,700 lines), the 3D-printed hardware, and the data analysis.</p>
+            <p data-i18n="sys_p2"><strong>My contribution:</strong> most hobby IoT devices hard-code the trade-off between live data and battery life. Mine makes it a runtime setting — three power modes taking current from ~64–93 mA down to ~4–7 mA, extending battery life from days to weeks. It logs locally and to the cloud with crash-safe auto-resume, hit 100% BLE reconnection and zero packet loss up to 5 m, validated over 7–22-day field runs with statistics in MATLAB and current measured on a Rohde & Schwarz oscilloscope.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">ESP32</span><span class="tag">BLE</span><span class="tag">Low-power</span><span class="tag">SolidWorks</span><span class="tag">MATLAB</span></div>
+            <div class="dl-row">
+              <a class="btn" href="downloads/ESP32-Monitor-Windows.exe" download data-i18n="btn_win">Download for Windows</a>
+              <a class="btn ghost" href="downloads/ESP32-Monitor-macOS.zip" download data-i18n="btn_mac">Download for macOS</a>
+              <a class="btn ghost" href="manual.html" data-i18n="btn_openmanual">Read the user manual →</a>
+            </div>
+            <div class="links"><a href="https://github.com/VenzeLGeek/ESP32-Monitor" target="_blank" rel="noopener" data-i18n="link_github">Source code on GitHub →</a></div>
+          </div>
+        </div>
+
+        <div class="subh" data-i18n="sys_val_h">Measured, not estimated</div>
+        <p class="note" data-i18n="sys_val_sub">Validated with lab instruments and multi-day field experiments.</p>
+        <div class="imgrid reveal">
+          <div class="imcard"><div class="ph"><img src="images/current-deep.png" alt="deep"></div><div class="cap" data-i18n="v1_c">Oscilloscope — Deep-Sleep current (≈ 6.9 mA).</div></div>
+          <div class="imcard"><div class="ph"><img src="images/result-soil.png" alt="soil"></div><div class="cap" data-i18n="v3_c">Soil moisture over 4 days — every watering captured.</div></div>
+        </div>
+
+        <div class="code-card reveal">
+          <div class="code-top"><span class="dotmac r"></span><span class="dotmac y"></span><span class="dotmac g"></span><span class="code-file">ESP32_DevKit.ino — my firmware</span></div>
+<pre><span class="c-com">// Clean radio teardown before deep sleep — cutting BLE/Wi-Fi first</span>
+<span class="c-com">// drops the LDO's residual 60-80 mA load. From my ESP32 firmware.</span>
+<span class="c-typ">void</span> <span class="c-fn">enterDeepSleep</span>(<span class="c-typ">uint32_t</span> seconds) {
+  <span class="c-fn">saveState</span>();                        <span class="c-com">// persist epoch + config to NVS</span>
+  <span class="c-key">if</span> (g_nimbleInited) {
+    NimBLEDevice::<span class="c-fn">getAdvertising</span>()-&gt;<span class="c-fn">stop</span>();
+    NimBLEDevice::<span class="c-fn">deinit</span>(<span class="c-key">true</span>);      <span class="c-com">// release the BLE controller</span>
+  }
+  WiFi.<span class="c-fn">mode</span>(WIFI_OFF);
+  <span class="c-fn">esp_bt_controller_disable</span>();
+  <span class="c-fn">delay</span>(<span class="c-num">300</span>);                       <span class="c-com">// let the 3.3 V rail recover</span>
+  <span class="c-fn">esp_sleep_enable_timer_wakeup</span>((<span class="c-typ">uint64_t</span>)seconds * <span class="c-num">1000000ULL</span>);
+  <span class="c-fn">esp_deep_sleep_start</span>();             <span class="c-com">// ~64 mA -> ~6.9 mA (~89% less)</span>
+}</pre>
+        </div>
+      </section>
+
+      <section class="msec reveal" id="games">
+        <div class="kick" data-i18n="gm_kicker">My Games</div>
+        <h2 data-i18n="gm_h2">Games I build in Swift</h2>
+        <p class="note" data-i18n="gm_sub">Creative projects where I write the story, the art and the code myself. Personal projects — not commercial releases.</p>
+        <div class="duo">
+          <article class="game"><div class="art"><img src="images/frog-logo.png" alt="Frogram"></div><div class="gbody"><h3>Frogram Operating Commander <span class="badge dev" data-i18n="badge_dev">In development</span></h3><p data-i18n="frog_p">A story-driven JRPG built in Swift/Xcode, with an accompanying novel that expands the world.</p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_devlog">Art & devlog →</a></div></div></article>
+          <article class="game"><div class="art"><img src="images/hockey-logo.png" alt="Hockey"></div><div class="gbody"><h3>Crazy International Hockey <span class="badge dev" data-i18n="badge_dev">In development</span></h3><p data-i18n="hockey_p">A fast, fun arcade hockey game for iPhone, built natively in Swift.</p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_follow">Follow progress →</a></div></div></article>
+        </div>
+        <p class="note reveal" data-i18n="proto_head" style="margin:26px 0 14px">Earlier prototypes — where I learned my craft</p>
+        <div class="duo">
+          <article class="game"><div class="art"><span class="emoji">🧠</span></div><div class="gbody"><h3>Escape from the mind <span class="badge proto" data-i18n="badge_proto1">Prototype · 2018–19</span></h3><p data-i18n="escape_p">My very first game, in Construct 2 — a short walk-and-talk adventure. Simple and unfinished, but it has a trailer.</p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_trailer">See the trailer →</a></div></div></article>
+          <article class="game"><div class="art"><span class="emoji">🎮</span></div><div class="gbody"><h3>Console History Clicker <span class="badge proto" data-i18n="badge_proto2">Prototype · 2022</span></h3><p data-i18n="clicker_p">A clicker game built to promote my Nintendo YouTube community — playable as an APK.</p><div class="links"><a href="{INSTAGRAM}" target="_blank" rel="noopener" data-i18n="link_more">More on Instagram →</a></div></div></article>
+        </div>
+      </section>
+
+      <section class="msec reveal">
+        <div class="kick" data-i18n="jr_kicker">My Journey</div>
+        <h2 data-i18n="jr_h2">From game prototypes to a full IoT system</h2>
+        <div class="tl-item"><div class="yr">2018–19</div><div><h4 data-i18n="jr1_h">Started coding</h4><p data-i18n="jr1_p">Built my first game prototype in Construct 2.</p></div></div>
+        <div class="tl-item"><div class="yr">2022</div><div><h4 data-i18n="jr2_h">University & more projects</h4><p data-i18n="jr2_p">Began my B.Sc. at TUKE; built a clicker game and did some web design.</p></div></div>
+        <div class="tl-item"><div class="yr">2025</div><div><h4 data-i18n="jr3_h">Native Apple development</h4><p data-i18n="jr3_p">Moved into native iOS/iPad/macOS game development with Swift.</p></div></div>
+        <div class="tl-item"><div class="yr">2026</div><div><h4 data-i18n="jr4_h">EU B.Sc. & a complete IoT system</h4><p data-i18n="jr4_p">Graduated and completed my thesis: a full IoT system.</p></div></div>
+      </section>
+    </main>
+  </div>
+
+  <footer id="contact">
+    <div class="rule" style="margin:0 0 24px"></div>
+    <div class="kick" data-i18n="ft_kicker" style="text-align:center">Get in touch</div>
+    <h2 style="font-family:var(--serif);font-size:26px;font-weight:700" data-i18n="ft_h2">Let's build something.</h2>
+    <div class="dl-row" style="justify-content:center;margin-top:16px">
+      <a class="btn" href="mailto:yan6050773@gmail.com">✉ yan6050773@gmail.com</a>
+      <a class="btn ghost" href="tel:+48512030374">📞 +48 512 030 374</a>
+    </div>
+    <p class="foot-note">+48 512 030 374 · +421 950 373 353 · yan6050773@gmail.com<br>Košice, Slovakia · from Belarus 🇧🇾 · open to relocation across Poland</p>
+  </footer>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>
