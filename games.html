@@ -67,6 +67,11 @@
   .stat:hover{transform:translateY(-4px);border-color:var(--accent)}
   .stat .n{font-size:34px;font-weight:800;background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .stat .l{color:var(--muted);font-size:14px;margin-top:4px}
+  .minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:22px}
+  .mini{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;transition:transform .16s,border-color .16s}
+  .mini:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .mini .k{font-family:var(--mono);font-size:11.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+  .mini .v{font-size:15.5px;font-weight:600;color:var(--text)}
   /* console grid */
   .cons{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:6px}
   .con{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:13px;transition:transform .16s,border-color .16s,box-shadow .16s}
@@ -175,7 +180,7 @@
     <h1 class="reveal"><span data-i18n="hero_h1a">Games are</span> <span class="g" data-i18n="hero_h1b">my whole life.</span></h1>
     <div class="eu-stamp reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="stamp">B.Sc. graduate · based in the EU · Warsaw-ready</span></div>
     <div class="typed reveal">$ <span id="tw"></span><span class="car">▋</span></div>
-    <p class="tagline reveal" data-i18n="hero_tag">I've played the greatest games ever made, I collect the consoles and the memorabilia, I mod and restore hardware, I film about all of it, and I build my own games. A real geek — and exactly the person you want testing your titles.</p>
+    <p class="tagline reveal" data-i18n="hero_tag">I've played the greatest games ever made, I collect the consoles and the memorabilia, I mod and restore hardware, I make videos about all of it as a YouTuber, and I build my own games. A real geek — and exactly the person you want testing your titles.</p>
     <div class="cta reveal">
       <a class="btn primary" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> <span data-i18n="btn_yt">My YouTube channel</span></a>
       <a class="btn" href="mailto:yan6050773@gmail.com"><i class="fa-solid fa-envelope"></i> <span data-i18n="btn_email">Email me</span></a>
@@ -184,12 +189,20 @@
   </div>
 </header>
 
-<section id="stats">
+<section id="about">
   <div class="wrap">
-    <div class="slabel reveal"><span class="no">01</span> <span data-i18n="s1">the short version</span> <span class="ln"></span></div>
-    <h2 class="reveal" data-i18n="s1h">A lifetime around games</h2>
-    <p class="sub reveal" data-i18n="s1sub">Not a hobby I picked up — the thing I've done since I was a kid, from every angle: playing, collecting, modding, filming and making.</p>
-    <div class="stats reveal">
+    <div class="slabel reveal"><span class="no">01</span> <span data-i18n="s1">about me</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s1h">Hi, I'm Yan — a gamer for life</h2>
+    <p class="sub reveal" data-i18n="s1sub">I'm Yan Kasabutski, 23, from Belarus and based in the EU. I've been playing video games since I was a kid and never stopped — it grew into collecting consoles, modding hardware, running a YouTube channel, leading a gaming community and building my own games. If it involves games, I'm into it. That's why testing games isn't just a job to me — it's my world.</p>
+    <div class="minis reveal">
+      <div class="mini"><div class="k" data-i18n="m1k">Name &amp; age</div><div class="v">Yan Kasabutski · 23</div></div>
+      <div class="mini"><div class="k" data-i18n="m2k">From</div><div class="v">🇧🇾 Belarus</div></div>
+      <div class="mini"><div class="k" data-i18n="m3k">Gaming since</div><div class="v" data-i18n="m3v">childhood — 15+ years</div></div>
+      <div class="mini"><div class="k" data-i18n="m4k">Based</div><div class="v" data-i18n="m4v">🇪🇺 EU · Warsaw-ready</div></div>
+      <div class="mini"><div class="k" data-i18n="m5k">I am</div><div class="v" data-i18n="m5v">gamer · collector · YouTuber</div></div>
+      <div class="mini"><div class="k" data-i18n="m6k">Languages</div><div class="v" data-i18n="m6v">English B2+ · PL · SK · RU</div></div>
+    </div>
+    <div class="stats reveal" style="margin-top:14px">
       <div class="stat"><div class="n">18+</div><div class="l" data-i18n="st1">consoles &amp; handhelds owned</div></div>
       <div class="stat"><div class="n">15+</div><div class="l" data-i18n="st2">years playing &amp; collecting</div></div>
       <div class="stat"><div class="n">2</div><div class="l" data-i18n="st3">games I built myself</div></div>
@@ -198,9 +211,53 @@
   </div>
 </section>
 
+<section id="mygames">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">02</span> <span data-i18n="s4">games I built</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s4h">I make games too</h2>
+    <p class="sub reveal" data-i18n="s4sub">I don't just play — I design and build my own. Which means I test feel, balance and bugs every single day.</p>
+    <div class="gcards reveal">
+      <div class="gcard">
+        <img class="logo" src="images/frog-logo.png" alt="Frogram">
+        <div>
+          <h3>Frogram Operating Commander <span class="badge" data-i18n="badge_dev">in development</span></h3>
+          <p data-i18n="g1">A story-driven JRPG built solo in Swift — narrative, design and code. I playtest pacing, balance and feel constantly.</p>
+        </div>
+      </div>
+      <div class="gcard">
+        <img class="logo" src="images/hockey-logo.png" alt="Hockey">
+        <div>
+          <h3>Crazy International Hockey <span class="badge" data-i18n="badge_dev">in development</span></h3>
+          <p data-i18n="g2">A fast, pick-up-and-play arcade hockey game for iPhone with local 1-vs-1 multiplayer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shooters">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">03</span> <span data-i18n="ssh">online shooters i play &amp; test</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="sshh">Online &amp; PvP shooters</h2>
+    <p class="sub reveal" data-i18n="sshsub">FPS and battle-royale aren't my #1 genre — but I've played the big ones and I'm comfortable testing them. A tester doesn't need to love every genre; they need to know it and pay attention. Here's what I've played.</p>
+  </div>
+  <div class="coverwrap reveal">
+    <div class="covertrack" id="ctrack">
+      <div class="cover"><img src="images/cover-pubg.jpg" alt="PUBG"></div>
+      <div class="cover"><img src="images/cover-fortnite.jpg" alt="Fortnite"></div>
+      <div class="cover"><img src="images/cover-gta.jpg" alt="GTA Online"></div>
+      <div class="cover"><img src="images/cover-bf1.jpg" alt="Battlefield 1"></div>
+      <div class="cover"><img src="images/cover-titanfall2.jpg" alt="Titanfall 2"></div>
+      <div class="cover"><img src="images/cover-tf2.jpg" alt="Team Fortress 2"></div>
+      <div class="cover"><img src="images/cover-wot.jpg" alt="World of Tanks"></div>
+      <div class="cover"><img src="images/cover-splatoon3.jpg" alt="Splatoon 3"></div>
+    </div>
+  </div>
+</section>
+
 <section id="collection">
   <div class="wrap">
-    <div class="slabel reveal"><span class="no">02</span> <span data-i18n="s2">the collection</span> <span class="ln"></span></div>
+    <div class="slabel reveal"><span class="no">04</span> <span data-i18n="s2">the collection</span> <span class="ln"></span></div>
     <h2 class="reveal" data-i18n="s2h">My console &amp; retro collection</h2>
     <p class="sub reveal" data-i18n="s2sub">I collect, mod and restore both the games and the hardware — from the Famicom era to the Switch. Here's the core of it.</p>
     <div class="cons reveal">
@@ -250,56 +307,12 @@
 
 <section id="whatido">
   <div class="wrap">
-    <div class="slabel reveal"><span class="no">03</span> <span data-i18n="s3">what I do with games</span> <span class="ln"></span></div>
+    <div class="slabel reveal"><span class="no">05</span> <span data-i18n="s3">what I do with games</span> <span class="ln"></span></div>
     <h2 class="reveal" data-i18n="s3h">Every angle of the hobby</h2>
     <div class="wd" style="margin-top:22px">
       <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-trophy"></i></div><h3 data-i18n="wd1h">Play the best</h3><p data-i18n="wd1p">I've played the greatest titles across every era and genre — RPGs, platformers, and plenty of FPS / shooter / battle-royale.</p></div>
       <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-screwdriver-wrench"></i></div><h3 data-i18n="wd2h">Collect, mod &amp; restore</h3><p data-i18n="wd2p">I hunt down games and hardware, mod consoles and bring old machines back to life. I know how these systems really work.</p></div>
-      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-video"></i></div><h3 data-i18n="wd3h">Film &amp; share</h3><p data-i18n="wd3p">I run a YouTube channel about games and consoles and lead gaming communities on Telegram and Discord.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="mygames">
-  <div class="wrap">
-    <div class="slabel reveal"><span class="no">04</span> <span data-i18n="s4">games I built</span> <span class="ln"></span></div>
-    <h2 class="reveal" data-i18n="s4h">I make games too</h2>
-    <p class="sub reveal" data-i18n="s4sub">I don't just play — I design and build my own. Which means I test feel, balance and bugs every single day.</p>
-    <div class="gcards reveal">
-      <div class="gcard">
-        <img class="logo" src="images/frog-logo.png" alt="Frogram">
-        <div>
-          <h3>Frogram Operating Commander <span class="badge" data-i18n="badge_dev">in development</span></h3>
-          <p data-i18n="g1">A story-driven JRPG built solo in Swift — narrative, design and code. I playtest pacing, balance and feel constantly.</p>
-        </div>
-      </div>
-      <div class="gcard">
-        <img class="logo" src="images/hockey-logo.png" alt="Hockey">
-        <div>
-          <h3>Crazy International Hockey <span class="badge" data-i18n="badge_dev">in development</span></h3>
-          <p data-i18n="g2">A fast, pick-up-and-play arcade hockey game for iPhone with local 1-vs-1 multiplayer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="shooters">
-  <div class="wrap">
-    <div class="slabel reveal"><span class="no">05</span> <span data-i18n="ssh">online shooters i play &amp; test</span> <span class="ln"></span></div>
-    <h2 class="reveal" data-i18n="sshh">Online &amp; PvP shooters</h2>
-    <p class="sub reveal" data-i18n="sshsub">FPS and battle-royale aren't my #1 genre — but I've played the big ones and I'm comfortable testing them. A tester doesn't need to love every genre; they need to know it and pay attention. Here's what I've played.</p>
-  </div>
-  <div class="coverwrap reveal">
-    <div class="covertrack" id="ctrack">
-      <div class="cover"><img src="images/cover-pubg.jpg" alt="PUBG"></div>
-      <div class="cover"><img src="images/cover-fortnite.jpg" alt="Fortnite"></div>
-      <div class="cover"><img src="images/cover-gta.jpg" alt="GTA Online"></div>
-      <div class="cover"><img src="images/cover-bf1.jpg" alt="Battlefield 1"></div>
-      <div class="cover"><img src="images/cover-titanfall2.jpg" alt="Titanfall 2"></div>
-      <div class="cover"><img src="images/cover-tf2.jpg" alt="Team Fortress 2"></div>
-      <div class="cover"><img src="images/cover-wot.jpg" alt="World of Tanks"></div>
-      <div class="cover"><img src="images/cover-splatoon3.jpg" alt="Splatoon 3"></div>
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-video"></i></div><h3 data-i18n="wd3h">YouTuber &amp; influencer</h3><p data-i18n="wd3p">I run a YouTube channel about games and consoles and lead gaming communities on Telegram and Discord.</p></div>
     </div>
   </div>
 </section>
@@ -391,7 +404,8 @@ const T={
     stamp:"Licencjat (B.Sc.) · mieszkam w UE · gotowy do pracy w Warszawie",
     hero_tag:"Grałem w najlepsze gry w historii, kolekcjonuję konsole i gadżety, moduję i renowuję sprzęt, nagrywam o tym filmy i tworzę własne gry. Prawdziwy geek — i dokładnie taka osoba, jakiej potrzebujesz do testowania gier.",
     btn_yt:"Mój kanał YouTube",btn_email:"Napisz do mnie",btn_col:"Zobacz kolekcję",
-    s1:"w skrócie",s1h:"Całe życie wśród gier",s1sub:"To nie hobby, które sobie znalazłem — to robię od dziecka, z każdej strony: gram, kolekcjonuję, moduję, nagrywam i tworzę.",
+    s1:"o mnie",s1h:"Cześć, jestem Yan — gracz na całe życie",s1sub:"Nazywam się Yan Kasabutski, mam 23 lata, pochodzę z Białorusi i mieszkam w UE. Gram w gry wideo od dziecka i nigdy nie przestałem — przerodziło się to w kolekcjonowanie konsol, modowanie sprzętu, prowadzenie kanału YouTube, liderowanie społeczności graczy i tworzenie własnych gier. Jeśli coś ma związek z grami, jestem w to zaangażowany. Dlatego testowanie gier to dla mnie nie tylko praca — to mój świat.",
+    m1k:"Imię i wiek",m2k:"Pochodzenie",m3k:"Gram od",m3v:"dzieciństwa — 15+ lat",m4k:"Mieszkam",m4v:"🇪🇺 UE · gotowy do Warszawy",m5k:"Jestem",m5v:"gracz · kolekcjoner · YouTuber",m6k:"Języki",m6v:"angielski B2+ · PL · SK · RU",
     st1:"posiadanych konsol i handheldów",st2:"lat grania i kolekcjonowania",st3:"gry, które sam stworzyłem",st4:"własny kanał + społeczności TG/Discord",
     s2:"kolekcja",s2h:"Moja kolekcja konsol i retro",s2sub:"Kolekcjonuję, moduję i renowuję zarówno gry, jak i sprzęt — od ery Famicom po Switch. Oto jej trzon.",
     con_more:"…i wiele więcej",
@@ -401,7 +415,7 @@ const T={
     s3:"co robię z grami",s3h:"Każda strona tego hobby",
     wd1h:"Gram w najlepsze",wd1p:"Grałem w najlepsze tytuły każdej epoki i gatunku — RPG, platformówki i sporo FPS / shooter / battle-royale.",
     wd2h:"Kolekcjonuję, moduję, renowuję",wd2p:"Poluję na gry i sprzęt, moduję konsole i przywracam do życia stare maszyny. Wiem, jak te systemy naprawdę działają.",
-    wd3h:"Nagrywam i dzielę się",wd3p:"Prowadzę kanał YouTube o grach i konsolach oraz społeczności na Telegramie i Discordzie.",
+    wd3h:"YouTuber i influencer",wd3p:"Prowadzę kanał YouTube o grach i konsolach oraz społeczności na Telegramie i Discordzie.",
     s4:"gry, które stworzyłem",s4h:"Tworzę gry też sam",s4sub:"Nie tylko gram — projektuję i buduję własne gry. Czyli codziennie testuję odczucia, balans i błędy.",
     badge_dev:"w produkcji",
     g1:"Fabularne JRPG stworzone samodzielnie w Swift — narracja, projekt i kod. Nieustannie testuję tempo, balans i odczucia.",
