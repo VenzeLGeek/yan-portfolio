@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!-- GAMER / COLLECTOR page — под вакансию Game Playtester. Один сайт с index.html, переключение через меню. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Kasabutski — Gamer, Collector & Game Tester</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  :root{--bg:#08060d;--surface:#130f1c;--surface2:#1a1426;--text:#f4f0fa;--muted:#a99fb8;--accent:#ff4d9d;--accent2:#b06bff;
+    --line:#2a2138;--mono:"SF Mono","JetBrains Mono","Roboto Mono",ui-monospace,Menlo,Consolas,monospace}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+  .mono{font-family:var(--mono)}
+  .bg{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(600px 320px at 12% 0%,rgba(255,77,157,.12),transparent 60%),
+    radial-gradient(620px 320px at 88% 18%,rgba(176,107,255,.12),transparent 60%)}
+  .bg::after{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:52px 52px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 80%);animation:drift 40s linear infinite}
+  @keyframes drift{to{background-position:520px 520px}}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:12px;height:56px;padding:0 22px;
+    background:rgba(8,6,13,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .brand{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--text)}.nav .brand b{color:var(--accent)}
+  .nav .navlinks{display:flex;gap:2px;margin:0 auto;align-items:center}
+  .nav a.nl{font-family:var(--mono);color:var(--muted);font-size:13px;padding:6px 11px;border-radius:7px;white-space:nowrap;transition:color .15s,background .15s}
+  .nav a.nl:hover{color:var(--accent);background:var(--surface)}
+  .nav a.swap{font-family:var(--mono);font-size:12.5px;color:var(--accent2);border:1px solid rgba(176,107,255,.4);border-radius:8px;padding:6px 12px;white-space:nowrap;transition:.15s}
+  .nav a.swap:hover{background:rgba(176,107,255,.14);color:#fff;border-color:var(--accent2)}
+  .langbar2{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:3px}
+  .langbtn{border:none;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:16px;cursor:pointer}
+  .langbtn.on{background:var(--accent);color:#1a0010}
+  @media(max-width:980px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
+  header{min-height:86vh;display:flex;flex-direction:column;justify-content:center;padding:100px 0 40px}
+  .eyebrow{font-family:var(--mono);color:var(--accent);font-size:13.5px;margin-bottom:18px}
+  .eyebrow .b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite;vertical-align:middle}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:clamp(44px,8.4vw,92px);line-height:.98;font-weight:800;letter-spacing:-.03em}
+  h1 .g{background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .typed{font-family:var(--mono);font-size:clamp(17px,2.5vw,24px);color:var(--text);margin-top:16px;min-height:1.4em}
+  .typed .car{color:var(--accent);animation:blink 1s step-start infinite}
+  @keyframes blink{50%{opacity:0}}
+  .tagline{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:680px;margin:20px 0 0}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 8px 26px -12px rgba(255,77,157,.6)}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
+  .btn.primary:hover{box-shadow:0 8px 30px -8px rgba(255,77,157,.7)}
+  .eu-stamp{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--accent2);
+    border:2px solid var(--accent2);border-radius:10px;padding:7px 12px;transform:rotate(-2deg)}
+  .eu-stamp i{margin-right:5px}
+  section{padding:78px 0;border-top:1px solid var(--line)}
+  .slabel{font-family:var(--mono);color:var(--accent);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .slabel .no{color:var(--muted)}.slabel .ln{flex:1;height:1px;background:var(--line)}
+  h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.01em;margin-bottom:10px}
+  .sub{color:var(--muted);font-size:16px;max-width:780px;margin-bottom:30px}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:8px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .16s,border-color .16s}
+  .stat:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .stat .n{font-size:34px;font-weight:800;background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .l{color:var(--muted);font-size:14px;margin-top:4px}
+  /* console grid */
+  .cons{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:6px}
+  .con{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:13px;transition:transform .16s,border-color .16s,box-shadow .16s}
+  .con:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 16px 34px -22px rgba(255,77,157,.6)}
+  .con .ic{font-size:22px;color:var(--accent);width:26px;text-align:center;flex:0 0 auto}
+  .con .nm{font-size:15px;font-weight:600}
+  .con .qty{font-family:var(--mono);font-size:11px;color:var(--accent2);border:1px solid rgba(176,107,255,.35);border-radius:6px;padding:1px 6px;margin-left:6px}
+  .catrow{margin-top:34px}
+  .cathead{font-family:var(--mono);color:var(--accent);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .cathead::before{content:"";width:16px;height:2px;background:var(--accent);display:inline-block}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:var(--mono);font-size:12.5px;color:#f0d6e6;background:var(--surface2);border:1px solid var(--line);padding:6px 11px;border-radius:8px;transition:transform .16s,background .16s,border-color .16s}
+  .chip:hover{transform:translateY(-2px);background:rgba(255,77,157,.16);border-color:var(--accent);color:#fff}
+  /* photo placeholders */
+  .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+  .frame{background:var(--surface);border:1px dashed var(--line);border-radius:14px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);text-align:center;padding:18px;overflow:hidden}
+  .frame img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+  .frame i{font-size:26px;color:var(--accent2);opacity:.7}
+  .frame .t{font-size:13px;font-family:var(--mono)}
+  /* what I do cards */
+  .wd{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.wd{grid-template-columns:1fr}}
+  .wdcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .16s,border-color .16s,box-shadow .16s}
+  .wdcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 20px 40px -24px rgba(255,77,157,.5)}
+  .wdcard .ic{font-size:26px;margin-bottom:12px;color:var(--accent)}.wdcard h3{font-size:18px;font-weight:700;margin-bottom:6px}.wdcard p{color:var(--muted);font-size:14.5px}
+  /* my games */
+  .gcards{display:grid;gap:18px}
+  .gcard{display:grid;grid-template-columns:120px 1fr;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;align-items:center}
+  @media(max-width:600px){.gcard{grid-template-columns:1fr;text-align:center}}
+  .gcard .logo{width:110px;height:110px;border-radius:24px;object-fit:cover;box-shadow:0 12px 30px -12px rgba(0,0,0,.5)}
+  .gcard h3{font-size:20px}.gcard p{color:var(--muted);font-size:15px;margin-top:6px}
+  .badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;margin-left:8px;background:var(--surface2);color:#ff86c4;border:1px solid rgba(255,77,157,.35)}
+  /* why fit */
+  .feats{list-style:none;display:grid;gap:12px;max-width:820px}
+  .feats li{display:flex;gap:13px;align-items:flex-start;color:#e0d8ec;font-size:16.5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;transition:transform .16s,border-color .16s}
+  .feats li:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .feats li i{color:var(--accent);font-size:18px;flex:0 0 auto;margin-top:2px}
+  /* video carousel */
+  .carousel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 22px 10px;margin-top:20px}
+  .stage{position:relative;background:#0c0912;border-radius:12px;aspect-ratio:16/9;overflow:hidden}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none}
+  .slide.active{opacity:1;pointer-events:auto}
+  .slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .slide .lbl{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 12px;font-family:var(--mono);font-size:14px;color:#fff;
+    background:linear-gradient(transparent,rgba(0,0,0,.82))}
+  .nvb{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(8,6,13,.82);color:var(--text);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+  .nvb:hover{background:var(--accent);color:#fff;transform:translateY(-50%) scale(1.08)}.nvb.prev{left:12px}.nvb.next{right:12px}
+  .dots{display:flex;gap:7px;justify-content:center;padding:12px 0 4px}
+  .dot{width:8px;height:8px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:transform .15s,background .15s}
+  .dot.on{background:var(--accent);transform:scale(1.3)}
+  .ytnote{text-align:center;font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px}
+  /* cover marquee */
+  .coverwrap{overflow:hidden;margin-top:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .covertrack{display:flex;gap:16px;width:max-content;animation:marq 36s linear infinite}
+  .coverwrap:hover .covertrack{animation-play-state:paused}
+  @keyframes marq{to{transform:translateX(-50%)}}
+  .cover{flex:0 0 auto;height:210px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0c0912;position:relative;transition:transform .16s,border-color .16s,box-shadow .16s}
+  .cover img{height:100%;width:auto;display:block}
+  .cover .nm{position:absolute;left:0;right:0;bottom:0;font-family:var(--mono);font-size:11.5px;color:#fff;padding:16px 8px 7px;background:linear-gradient(transparent,rgba(0,0,0,.85));text-align:center}
+  .cover:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 34px -20px rgba(255,77,157,.6)}
+  /* community */
+  .brandrow{display:grid;grid-template-columns:150px 1fr;gap:26px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;margin-top:8px}
+  @media(max-width:640px){.brandrow{grid-template-columns:1fr;text-align:center;justify-items:center}}
+  .brandrow .logo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:1px solid var(--line);box-shadow:0 16px 40px -18px rgba(255,77,157,.5)}
+  .brandrow h3{font-size:23px;font-weight:800}
+  .brandrow .un{font-family:var(--mono);color:var(--accent2);font-size:14px;margin:4px 0 10px}
+  .brandrow p{color:#e0d8ec;font-size:16px;max-width:640px}
+  .commgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  @media(max-width:640px){.commgrid{grid-template-columns:1fr}}
+  .commcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .commcard .ph{background:#0c0912;display:flex;align-items:center;justify-content:center;padding:14px}
+  .commcard .ph img{max-width:100%;max-height:280px;object-fit:contain;border-radius:10px}
+  .commcard .cap{padding:12px 16px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+  .commbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .commbtns .btn.dc:hover{border-color:#5865F2;box-shadow:0 8px 26px -12px rgba(88,101,242,.7)}
+  /* collection photos */
+  .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px}
+  .frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .frame img{width:100%;height:220px;object-fit:cover;display:block}
+  .frame .cap{padding:11px 15px;color:var(--muted);font-size:13.5px;font-family:var(--mono);border-top:1px solid var(--line)}
+  /* contact */
+  .cbtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:13px;font-family:var(--mono);border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<nav class="nav">
+  <a href="#top" class="brand">yan<b>.</b>kasabutski</a>
+  <div class="navlinks">
+    <a class="nl" href="#collection" data-i18n="nl_col">./collection</a>
+    <a class="nl" href="#mygames" data-i18n="nl_games">./my-games</a>
+    <a class="nl" href="#community" data-i18n="nl_comm">./community</a>
+    <a class="nl" href="#why" data-i18n="nl_why">./why-me</a>
+    <a class="nl" href="#contact" data-i18n="nl_contact">./contact</a>
+    <a class="swap" href="index.html"><i class="fa-solid fa-code"></i> <span data-i18n="nl_dev">Development →</span></a>
+  </div>
+  <div class="langbar2"><button class="langbtn on" data-lang="en">EN</button><button class="langbtn" data-lang="pl">PL</button></div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="b"></span><span data-i18n="hero_eye">Gamer · Collector · Game Tester</span></div>
+    <h1 class="reveal"><span data-i18n="hero_h1a">Games are</span> <span class="g" data-i18n="hero_h1b">my whole life.</span></h1>
+    <div class="eu-stamp reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="stamp">B.Sc. graduate · based in the EU · Warsaw-ready</span></div>
+    <div class="typed reveal">$ <span id="tw"></span><span class="car">▋</span></div>
+    <p class="tagline reveal" data-i18n="hero_tag">I've played the greatest games ever made, I collect the consoles and the memorabilia, I mod and restore hardware, I film about all of it, and I build my own games. A real geek — and exactly the person you want testing your titles.</p>
+    <div class="cta reveal">
+      <a class="btn primary" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> <span data-i18n="btn_yt">My YouTube channel</span></a>
+      <a class="btn" href="mailto:yan6050773@gmail.com"><i class="fa-solid fa-envelope"></i> <span data-i18n="btn_email">Email me</span></a>
+      <a class="btn" href="#collection"><i class="fa-solid fa-gamepad"></i> <span data-i18n="btn_col">See the collection</span></a>
+    </div>
+  </div>
+</header>
+
+<section id="stats">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">01</span> <span data-i18n="s1">the short version</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s1h">A lifetime around games</h2>
+    <p class="sub reveal" data-i18n="s1sub">Not a hobby I picked up — the thing I've done since I was a kid, from every angle: playing, collecting, modding, filming and making.</p>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">18+</div><div class="l" data-i18n="st1">consoles &amp; handhelds owned</div></div>
+      <div class="stat"><div class="n">15+</div><div class="l" data-i18n="st2">years playing &amp; collecting</div></div>
+      <div class="stat"><div class="n">2</div><div class="l" data-i18n="st3">games I built myself</div></div>
+      <div class="stat"><div class="n">YT</div><div class="l" data-i18n="st4">own channel + TG/Discord communities</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="collection">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">02</span> <span data-i18n="s2">the collection</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s2h">My console &amp; retro collection</h2>
+    <p class="sub reveal" data-i18n="s2sub">I collect, mod and restore both the games and the hardware — from the Famicom era to the Switch. Here's the core of it.</p>
+    <div class="cons reveal">
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Nintendo Switch</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Wii U <span class="qty">×2</span></span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Nintendo Wii</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-cube"></i></span><span class="nm">GameCube <span class="qty">×2</span></span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Famicom</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Famicom Mini</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-mobile-screen"></i></span><span class="nm">Nintendo 3DS</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-mobile-screen"></i></span><span class="nm">New 3DS XL</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-mobile-screen"></i></span><span class="nm">Nintendo DS Lite</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-mobile-screen"></i></span><span class="nm">Nintendo DSi XL</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Sony PSP</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-gamepad"></i></span><span class="nm">Game Boy Pocket</span></div>
+      <div class="con"><span class="ic"><i class="fa-solid fa-ellipsis"></i></span><span class="nm" data-i18n="con_more">…and many more</span></div>
+    </div>
+
+    <div class="catrow reveal">
+      <div class="cathead"><span data-i18n="cat_retro">Retro computers &amp; laptops</span></div>
+      <div class="chips">
+        <span class="chip" data-i18n="chip_pc">vintage PCs</span>
+        <span class="chip" data-i18n="chip_lap">old laptops</span>
+        <span class="chip" data-i18n="chip_restore">restored &amp; running</span>
+      </div>
+    </div>
+    <div class="catrow reveal">
+      <div class="cathead"><span data-i18n="cat_phone">Phones for mobile gaming history</span></div>
+      <div class="chips">
+        <span class="chip">Nokia · Java games</span>
+        <span class="chip">early iPhone</span>
+        <span class="chip">classic Samsung</span>
+        <span class="chip" data-i18n="chip_merch">+ merch &amp; memorabilia</span>
+      </div>
+    </div>
+
+    <div class="catrow reveal">
+      <div class="cathead"><i class="fa-solid fa-camera" style="width:auto;height:auto;background:none;margin-right:4px"></i> <span data-i18n="cat_photos">From my shelf</span></div>
+      <div class="shelf">
+        <div class="frame"><img src="images/collection-01.jpg" alt="My shelf" loading="lazy"><div class="cap" data-i18n="ph1">the shelf I film on — amiibo, figures &amp; handhelds</div></div>
+        <div class="frame"><img src="images/collection-02.jpg" alt="Handhelds" loading="lazy"><div class="cap" data-i18n="ph2">part of my Nintendo 3DS collection</div></div>
+        <div class="frame"><img src="images/collection-03.jpg" alt="GameCube" loading="lazy"><div class="cap" data-i18n="ph3">one of my GameCubes</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="whatido">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">03</span> <span data-i18n="s3">what I do with games</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s3h">Every angle of the hobby</h2>
+    <div class="wd" style="margin-top:22px">
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-trophy"></i></div><h3 data-i18n="wd1h">Play the best</h3><p data-i18n="wd1p">I've played the greatest titles across every era and genre — RPGs, platformers, and plenty of FPS / shooter / battle-royale.</p></div>
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-screwdriver-wrench"></i></div><h3 data-i18n="wd2h">Collect, mod &amp; restore</h3><p data-i18n="wd2p">I hunt down games and hardware, mod consoles and bring old machines back to life. I know how these systems really work.</p></div>
+      <div class="wdcard reveal"><div class="ic"><i class="fa-solid fa-video"></i></div><h3 data-i18n="wd3h">Film &amp; share</h3><p data-i18n="wd3p">I run a YouTube channel about games and consoles and lead gaming communities on Telegram and Discord.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="mygames">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">04</span> <span data-i18n="s4">games I built</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s4h">I make games too</h2>
+    <p class="sub reveal" data-i18n="s4sub">I don't just play — I design and build my own. Which means I test feel, balance and bugs every single day.</p>
+    <div class="gcards reveal">
+      <div class="gcard">
+        <img class="logo" src="images/frog-logo.png" alt="Frogram">
+        <div>
+          <h3>Frogram Operating Commander <span class="badge" data-i18n="badge_dev">in development</span></h3>
+          <p data-i18n="g1">A story-driven JRPG built solo in Swift — narrative, design and code. I playtest pacing, balance and feel constantly.</p>
+        </div>
+      </div>
+      <div class="gcard">
+        <img class="logo" src="images/hockey-logo.png" alt="Hockey">
+        <div>
+          <h3>Crazy International Hockey <span class="badge" data-i18n="badge_dev">in development</span></h3>
+          <p data-i18n="g2">A fast, pick-up-and-play arcade hockey game for iPhone with local 1-vs-1 multiplayer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shooters">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">05</span> <span data-i18n="ssh">online shooters i play &amp; test</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="sshh">Online &amp; PvP shooters</h2>
+    <p class="sub reveal" data-i18n="sshsub">FPS and battle-royale aren't my #1 genre — but I've played the big ones and I'm comfortable testing them. A tester doesn't need to love every genre; they need to know it and pay attention. Here's what I've played.</p>
+  </div>
+  <div class="coverwrap reveal">
+    <div class="covertrack" id="ctrack">
+      <div class="cover"><img src="images/cover-pubg.jpg" alt="PUBG"><span class="nm">PUBG</span></div>
+      <div class="cover"><img src="images/cover-fortnite.jpg" alt="Fortnite"><span class="nm">Fortnite</span></div>
+      <div class="cover"><img src="images/cover-gta.jpg" alt="GTA Online"><span class="nm">GTA Online</span></div>
+      <div class="cover"><img src="images/cover-bf1.jpg" alt="Battlefield 1"><span class="nm">Battlefield 1</span></div>
+      <div class="cover"><img src="images/cover-titanfall2.jpg" alt="Titanfall 2"><span class="nm">Titanfall 2</span></div>
+      <div class="cover"><img src="images/cover-tf2.jpg" alt="Team Fortress 2"><span class="nm">Team Fortress 2</span></div>
+      <div class="cover"><img src="images/cover-wot.jpg" alt="World of Tanks"><span class="nm">World of Tanks</span></div>
+      <div class="cover"><img src="images/cover-splatoon3.jpg" alt="Splatoon 3"><span class="nm">Splatoon 3</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="youtube">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">06</span> <span data-i18n="s5">my youtube channel</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s5h">Venzel Geek — I make videos about games</h2>
+    <p class="sub reveal" data-i18n="s5sub">I create videos about video games, consoles and Nintendo homebrew. Here are a few of my thumbnails — click to visit the channel.</p>
+    <div class="carousel reveal">
+      <div class="stage" id="stage">
+        <a class="slide active" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><img src="images/vid-03.jpg" alt="video"><span class="lbl" data-i18n="v1">Playing modern games on a Nintendo 3DS</span></a>
+        <a class="slide" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><img src="images/vid-01.jpg" alt="video"><span class="lbl" data-i18n="v2">3DS homebrew &amp; the eShop — how it works</span></a>
+        <a class="slide" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><img src="images/vid-04.jpg" alt="video"><span class="lbl" data-i18n="v3">Cuphead on Wii U</span></a>
+        <a class="slide" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><img src="images/vid-02.jpg" alt="video"><span class="lbl" data-i18n="v4">Life around the collection</span></a>
+        <button class="nvb prev" id="cprev" aria-label="prev">‹</button>
+        <button class="nvb next" id="cnext" aria-label="next">›</button>
+      </div>
+      <div class="dots" id="cdots"></div>
+    </div>
+    <div class="ytnote reveal"><i class="fa-brands fa-youtube" style="color:var(--accent)"></i> youtube.com/@Venzel_Geek</div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">07</span> <span data-i18n="s6c">my community</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s6ch">I founded and lead a gaming community</h2>
+    <p class="sub reveal" data-i18n="s6csub">This is the part I'm proudest of — I didn't just join a community, I built one.</p>
+    <div class="brandrow reveal">
+      <img class="logo" src="images/venzel-logo.png" alt="Venzel Geek">
+      <div>
+        <h3>Venzel_Geek Bros. Union</h3>
+        <div class="un" data-i18n="un">Nintendo community · Discord &amp; Telegram · founder &amp; leader</div>
+        <p data-i18n="commp">I'm the founder and leader of our Nintendo gaming community on Discord and Telegram. We're a crew that genuinely lives and breathes video games — we play together, help each other, share homebrew and mods, and celebrate everything Nintendo. Running it taught me to listen to feedback, keep people motivated and stay organised.</p>
+      </div>
+    </div>
+    <div class="commgrid reveal">
+      <div class="commcard"><div class="ph"><img src="images/fanart.jpg" alt="Community fan art"></div><div class="cap" data-i18n="cc1">Fan art of my mascot, drawn by one of our community members ❤</div></div>
+      <div class="commcard"><div class="ph"><img src="images/venzel-mascot.png" alt="Venzel mascot"></div><div class="cap" data-i18n="cc2">Venzel — my pixel mascot, the face of the community</div></div>
+    </div>
+    <div class="commbtns reveal">
+      <a class="btn dc" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Discord</a>
+      <a class="btn" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i> Telegram</a>
+      <a class="btn" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">08</span> <span data-i18n="s6">why me for playtesting</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s6h">Why I'd be a great playtester</h2>
+    <ul class="feats reveal" style="margin-top:22px">
+      <li><i class="fa-solid fa-heart"></i><span data-i18n="w1"><b>Genuine love of games.</b> This isn't a filler job for me — it's my life. I'll care about your titles as much as my own.</span></li>
+      <li><i class="fa-solid fa-magnifying-glass"></i><span data-i18n="w2"><b>Sharp attention to detail.</b> For my engineering thesis I ran multi-day test cycles (7–22 days), followed strict procedures and logged every result.</span></li>
+      <li><i class="fa-solid fa-list-check"></i><span data-i18n="w3"><b>Reliable with instructions.</b> Comfortable following structured scenarios, set playstyles and focus points — and reporting clearly.</span></li>
+      <li><i class="fa-solid fa-language"></i><span data-i18n="w4"><b>English B2+.</b> Clear written feedback and bug reports. I also speak Polish, Slovak and Russian.</span></li>
+      <li><i class="fa-solid fa-location-dot"></i><span data-i18n="w5"><b>On-site in Warsaw.</b> Based in the EU, B.Sc. graduate, ready to work on-site. I've already worked seasonally in Warsaw and Kraków.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="slabel reveal"><span class="no">09</span> <span data-i18n="s7">contact</span> <span class="ln"></span></div>
+    <h2 class="reveal" data-i18n="s7h">Let's talk</h2>
+    <p class="sub reveal" data-i18n="s7sub">Happy to come in for a trial or interview any time.</p>
+    <div class="cbtns reveal">
+      <a class="btn primary" href="mailto:yan6050773@gmail.com"><i class="fa-solid fa-envelope"></i> yan6050773@gmail.com</a>
+      <a class="btn" href="tel:+48512030374"><i class="fa-solid fa-phone"></i> +48 512 030 374</a>
+      <a class="btn" href="https://www.youtube.com/@Venzel_Geek" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a class="btn" href="index.html"><i class="fa-solid fa-code"></i> <span data-i18n="btn_dev">Dev portfolio</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Yan Kasabutski · <span data-i18n="foot">gamer, collector &amp; game tester</span></div>
+</footer>
+
+<script>
+const T={
+  en:{},
+  pl:{
+    nl_col:"./kolekcja",nl_games:"./moje-gry",nl_comm:"./spoleczosc",nl_why:"./dlaczego-ja",nl_contact:"./kontakt",nl_dev:"Prace →",
+    hero_eye:"Gracz · Kolekcjoner · Tester gier",
+    hero_h1a:"Gry to",hero_h1b:"całe moje życie.",
+    stamp:"Licencjat (B.Sc.) · mieszkam w UE · gotowy do pracy w Warszawie",
+    hero_tag:"Grałem w najlepsze gry w historii, kolekcjonuję konsole i gadżety, moduję i renowuję sprzęt, nagrywam o tym filmy i tworzę własne gry. Prawdziwy geek — i dokładnie taka osoba, jakiej potrzebujesz do testowania gier.",
+    btn_yt:"Mój kanał YouTube",btn_email:"Napisz do mnie",btn_col:"Zobacz kolekcję",
+    s1:"w skrócie",s1h:"Całe życie wśród gier",s1sub:"To nie hobby, które sobie znalazłem — to robię od dziecka, z każdej strony: gram, kolekcjonuję, moduję, nagrywam i tworzę.",
+    st1:"posiadanych konsol i handheldów",st2:"lat grania i kolekcjonowania",st3:"gry, które sam stworzyłem",st4:"własny kanał + społeczności TG/Discord",
+    s2:"kolekcja",s2h:"Moja kolekcja konsol i retro",s2sub:"Kolekcjonuję, moduję i renowuję zarówno gry, jak i sprzęt — od ery Famicom po Switch. Oto jej trzon.",
+    con_more:"…i wiele więcej",
+    cat_retro:"Retro komputery i laptopy",chip_pc:"stare PC",chip_lap:"stare laptopy",chip_restore:"odrestaurowane i działające",
+    cat_phone:"Telefony — historia gier mobilnych",chip_merch:"+ gadżety i pamiątki",
+    cat_photos:"Z mojej półki",ph1:"półka, na której nagrywam — amiibo, figurki i handheldy",ph2:"część mojej kolekcji Nintendo 3DS",ph3:"jeden z moich GameCube'ów",
+    s3:"co robię z grami",s3h:"Każda strona tego hobby",
+    wd1h:"Gram w najlepsze",wd1p:"Grałem w najlepsze tytuły każdej epoki i gatunku — RPG, platformówki i sporo FPS / shooter / battle-royale.",
+    wd2h:"Kolekcjonuję, moduję, renowuję",wd2p:"Poluję na gry i sprzęt, moduję konsole i przywracam do życia stare maszyny. Wiem, jak te systemy naprawdę działają.",
+    wd3h:"Nagrywam i dzielę się",wd3p:"Prowadzę kanał YouTube o grach i konsolach oraz społeczności na Telegramie i Discordzie.",
+    s4:"gry, które stworzyłem",s4h:"Tworzę gry też sam",s4sub:"Nie tylko gram — projektuję i buduję własne gry. Czyli codziennie testuję odczucia, balans i błędy.",
+    badge_dev:"w produkcji",
+    g1:"Fabularne JRPG stworzone samodzielnie w Swift — narracja, projekt i kod. Nieustannie testuję tempo, balans i odczucia.",
+    g2:"Szybka, prosta gra arcade w hokeja na iPhone z lokalnym trybem 1 na 1.",
+    ssh:"sieciowe strzelanki, w które gram",sshh:"Sieciowe strzelanki i PvP",sshsub:"FPS i battle-royale to nie mój ulubiony gatunek — ale grałem w te najważniejsze i swobodnie je testuję. Tester nie musi kochać każdego gatunku; musi go znać i być uważny. Oto, w co grałem.",
+    s5:"mój kanał youtube",s5h:"Venzel Geek — nagrywam filmy o grach",s5sub:"Tworzę filmy o grach, konsolach i homebrew na Nintendo. Oto kilka moich miniatur — kliknij, aby wejść na kanał.",
+    v1:"Nowoczesne gry na Nintendo 3DS",v2:"Homebrew 3DS i eShop — jak to działa",v3:"Cuphead na Wii U",v4:"Życie wokół kolekcji",
+    s6c:"moja społeczność",s6ch:"Założyłem i prowadzę społeczność graczy",s6csub:"To część, z której jestem najbardziej dumny — nie tylko dołączyłem do społeczności, zbudowałem własną.",
+    un:"Społeczność Nintendo · Discord i Telegram · założyciel i lider",
+    commp:"Jestem założycielem i liderem naszej społeczności graczy Nintendo na Discordzie i Telegramie. Jesteśmy ekipą, która naprawdę żyje grami — gramy razem, pomagamy sobie, dzielimy się homebrew i modami oraz świętujemy wszystko, co nintendowe. Prowadzenie jej nauczyło mnie słuchać opinii, motywować ludzi i utrzymywać porządek.",
+    cc1:"Fan art mojego maskota, narysowany przez członka naszej społeczności ❤",cc2:"Venzel — mój pikselowy maskot, twarz społeczności",
+    s6:"dlaczego ja do testowania",s6h:"Dlaczego byłbym świetnym testerem",
+    w1:"<b>Prawdziwa miłość do gier.</b> To nie jest dla mnie praca na zapełnienie czasu — to moje życie. O Wasze tytuły zadbam jak o własne.",
+    w2:"<b>Wyczulenie na szczegóły.</b> W pracy dyplomowej prowadziłem wielodniowe cykle testów (7–22 dni), trzymałem się ścisłych procedur i notowałem każdy wynik.",
+    w3:"<b>Niezawodny z instrukcjami.</b> Swobodnie realizuję ustrukturyzowane scenariusze, zadane style gry i punkty skupienia — i jasno raportuję.",
+    w4:"<b>Angielski B2+.</b> Jasne opisy i raporty błędów. Mówię też po polsku, słowacku i rosyjsku.",
+    w5:"<b>Na miejscu w Warszawie.</b> Mieszkam w UE, licencjat, gotowy do pracy stacjonarnej. Pracowałem już sezonowo w Warszawie i Krakowie.",
+    s7:"kontakt",s7h:"Porozmawiajmy",s7sub:"Chętnie przyjdę na dzień próbny lub rozmowę w dowolnym terminie.",
+    btn_dev:"Portfolio dev",foot:"gracz, kolekcjoner i tester gier"
+  }
+};
+function applyLang(l){
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    var k=el.getAttribute("data-i18n");
+    if(l==="en"){ if(el.dataset.en===undefined) el.dataset.en=el.innerHTML; el.innerHTML=el.dataset.en; }
+    else if(T.pl[k]!==undefined){ if(el.dataset.en===undefined) el.dataset.en=el.innerHTML; el.innerHTML=T.pl[k]; }
+  });
+  document.documentElement.lang=l;
+  document.querySelectorAll(".langbtn").forEach(function(b){b.classList.toggle("on",b.dataset.lang===l);});
+}
+document.querySelectorAll(".langbtn").forEach(function(b){b.addEventListener("click",function(){applyLang(b.dataset.lang);});});
+
+/* typewriter */
+var words=["FPS &amp; battle royale.","JRPGs &amp; retro.","my own games.","bugs before players do."];
+var ti=0,ci=0,del=false,tw=document.getElementById("tw");
+function type(){var w=words[ti];if(!del){tw.innerHTML=w.slice(0,++ci);if(ci===w.length){del=true;return setTimeout(type,1300);}}
+  else{tw.innerHTML=w.slice(0,--ci);if(ci===0){del=false;ti=(ti+1)%words.length;}}
+  setTimeout(type,del?45:80);}
+type();
+
+/* reveal on scroll */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+
+/* cover marquee — duplicate track for seamless loop */
+(function(){var t=document.getElementById("ctrack");if(t)t.innerHTML+=t.innerHTML;})();
+
+/* video carousel */
+(function(){
+  var slides=Array.prototype.slice.call(document.querySelectorAll("#stage .slide"));
+  if(!slides.length)return;
+  var dots=document.getElementById("cdots"),cur=0,timer;
+  slides.forEach(function(_,i){var d=document.createElement("button");d.className="dot"+(i===0?" on":"");d.addEventListener("click",function(){go(i);});dots.appendChild(d);});
+  function go(n){slides[cur].classList.remove("active");dots.children[cur].classList.remove("on");
+    cur=(n+slides.length)%slides.length;slides[cur].classList.add("active");dots.children[cur].classList.add("on");}
+  function next(){go(cur+1);}
+  document.getElementById("cnext").addEventListener("click",function(){next();reset();});
+  document.getElementById("cprev").addEventListener("click",function(){go(cur-1);reset();});
+  function reset(){clearInterval(timer);timer=setInterval(next,4500);}
+  reset();
+})();
+
+applyLang("en");
+</script>
+</body>
+</html>
