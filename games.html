@@ -53,6 +53,7 @@
   .btn:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 8px 26px -12px rgba(255,77,157,.6)}
   .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
   .btn.primary:hover{box-shadow:0 8px 30px -8px rgba(255,77,157,.7)}
+  .avatar{width:96px;height:96px;margin-bottom:18px;display:block;filter:drop-shadow(0 10px 22px rgba(255,77,157,.45))}
   .eu-stamp{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--accent2);
     border:2px solid var(--accent2);border-radius:10px;padding:7px 12px;transform:rotate(-2deg)}
   .eu-stamp i{margin-right:5px}
@@ -156,6 +157,31 @@
   /* contact */
   .cbtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:13px;font-family:var(--mono);border-top:1px solid var(--line)}
+  @media(max-width:640px){
+    .wrap{padding:0 16px}
+    section{padding:50px 0}
+    header{min-height:auto;padding:88px 0 26px}
+    .nav{padding:0 10px;gap:8px}
+    .nav .brand{font-size:13px}
+    .nav a.swap{font-size:11px;padding:5px 9px}
+    .langbar2{padding:2px}.langbtn{padding:4px 9px;font-size:11px}
+    .avatar{width:76px;height:76px;margin-bottom:14px}
+    .tagline{font-size:15px}
+    .cta{gap:9px}.cta .btn{font-size:13.5px;padding:10px 13px}
+    .minis{grid-template-columns:1fr 1fr;gap:10px}
+    .stats{grid-template-columns:1fr 1fr}
+    .cons{grid-template-columns:1fr 1fr;gap:10px}
+    .con{padding:12px 12px;gap:9px}.con .nm{font-size:13px}
+    .cover{width:132px;height:176px}
+    .shelf{grid-template-columns:1fr}
+    .brandrow .logo{width:120px;height:120px}
+    h2{font-size:25px}
+  }
+  @media(max-width:380px){
+    .nav a.swap span{display:none}
+    .nav .brand{font-size:12px}
+    .cons{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -169,13 +195,14 @@
     <a class="nl" href="#community" data-i18n="nl_comm">./community</a>
     <a class="nl" href="#why" data-i18n="nl_why">./why-me</a>
     <a class="nl" href="#contact" data-i18n="nl_contact">./contact</a>
-    <a class="swap" href="index.html"><i class="fa-solid fa-code"></i> <span data-i18n="nl_dev">Development →</span></a>
   </div>
+  <a class="swap" href="index.html"><i class="fa-solid fa-code"></i> <span data-i18n="nl_dev">Development →</span></a>
   <div class="langbar2"><button class="langbtn on" data-lang="en">EN</button><button class="langbtn" data-lang="pl">PL</button></div>
 </nav>
 
 <header id="top">
   <div class="wrap">
+    <img class="avatar reveal" src="images/face.png" alt="Yan Kasabutski">
     <div class="eyebrow reveal"><span class="b"></span><span data-i18n="hero_eye">Gamer · Collector · Game Tester</span></div>
     <h1 class="reveal"><span data-i18n="hero_h1a">Games are</span> <span class="g" data-i18n="hero_h1b">my whole life.</span></h1>
     <div class="eu-stamp reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="stamp">B.Sc. graduate · based in the EU · Warsaw-ready</span></div>

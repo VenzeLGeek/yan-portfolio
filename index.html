@@ -34,7 +34,20 @@
   .langbar2{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:3px}
   .langbtn{border:none;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:16px;cursor:pointer}
   .langbtn.on{background:var(--accent);color:#1a0010}
+  .nav a.swap{font-family:var(--mono);font-size:12.5px;color:var(--accent2);border:1px solid rgba(176,107,255,.4);border-radius:8px;padding:6px 12px;white-space:nowrap;transition:.15s}
+  .nav a.swap:hover{background:rgba(176,107,255,.14);color:#fff;border-color:var(--accent2)}
+  .avatar{width:96px;height:96px;margin-bottom:18px;display:block;filter:drop-shadow(0 10px 22px rgba(255,77,157,.45))}
   @media(max-width:900px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
+  @media(max-width:640px){
+    .wrap{padding:0 16px}
+    .nav{padding:0 10px;gap:8px}.nav .brand{font-size:13px}
+    .nav a.swap{font-size:11px;padding:5px 9px}
+    .langbar2{padding:2px}.langbtn{padding:4px 9px;font-size:11px}
+    .avatar{width:76px;height:76px;margin-bottom:14px}
+    header{min-height:auto;padding:84px 0 26px}
+    section{padding:52px 0}
+  }
+  @media(max-width:380px){.nav a.swap span{display:none}.nav .brand{font-size:12px}}
   header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 40px}
   .eyebrow{font-family:var(--mono);color:var(--accent);font-size:13.5px;margin-bottom:18px}
   .eyebrow .b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite;vertical-align:middle}
@@ -232,13 +245,14 @@
     <a class="nl" href="#games">./games</a>
     <a class="nl" href="manual.html">./manual</a>
     <a class="nl" href="#contact">./contact</a>
-    <a class="nl" href="games.html" style="color:var(--accent2);border:1px solid rgba(176,107,255,.4)"><i class="fa-solid fa-gamepad"></i> Hobby →</a>
   </div>
+  <a class="swap" href="games.html"><i class="fa-solid fa-gamepad"></i> <span>Hobby →</span></a>
   <div class="langbar2"><button class="langbtn on" data-lang="en">EN</button><button class="langbtn" data-lang="pl">PL</button></div>
 </nav>
 
 <header id="top">
   <div class="wrap">
+    <img class="avatar reveal" src="images/face.png" alt="Yan Kasabutski">
     <div class="eyebrow reveal"><span class="b"></span><span data-i18n="as_avail">Available for work</span> · <span data-i18n="hero_based">Based in the EU</span></div>
     <h1 class="reveal">Yan<span class="g">.</span>Kasabutski</h1>
     <div class="eu-stamp reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="stamp_edu">EU-accredited B.Sc. · Graduated 2026</span></div>
