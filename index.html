@@ -42,6 +42,8 @@
   .herofig{width:100%;max-height:600px;object-fit:contain;object-position:bottom center;justify-self:end;filter:drop-shadow(0 24px 46px rgba(0,0,0,.55));animation:floaty 6s ease-in-out infinite}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   @media(max-width:820px){header .wrap{grid-template-columns:1fr}.herofig{display:none}}
+  .band{background:linear-gradient(180deg,#241247 0%,#160c2b 100%);border-bottom:1px solid rgba(176,107,255,.22)}
+  .band .wdcard,.band .scol,.band .imcard,.band .carousel,.band .dlstep,.band .mini,.band .gcard{background:#170d2c;border-color:rgba(176,107,255,.22)}
   @media(max-width:900px){.nav .navlinks{display:none}.nav .brand{margin-right:auto}}
   @media(max-width:640px){
     .wrap{padding:0 16px}
@@ -277,7 +279,7 @@
 </header>
 
 <!-- ABOUT ME -->
-<section id="about" style="border-top:none">
+<section id="about" class="band" style="border-top:none">
   <div class="wrap">
     <div class="slabel reveal"><span class="no">//</span> <span data-i18n="about_kicker">about me</span><span class="ln"></span></div>
     <p class="lead reveal" data-i18n="ab_p">I'm Yan, 23, from Belarus and based in the EU.</p>
@@ -305,7 +307,7 @@
 </section>
 
 <!-- 01 SKILLS -->
-<section id="skills">
+<section id="skills" class="band">
   <div class="wrap">
     <div class="slabel reveal"><span class="no">01</span> / <span data-i18n="nav_skills">skills</span><span class="ln"></span></div>
     <h2 class="reveal" data-i18n="sk_h2">What I work with</h2>
@@ -579,7 +581,7 @@
 </section>
 
 <!-- 03 JOURNEY -->
-<section id="journey">
+<section id="journey" class="band">
   <div class="wrap">
     <div class="slabel reveal"><span class="no">03</span> / <span data-i18n="jr_kicker">journey</span><span class="ln"></span></div>
     <h2 class="reveal" data-i18n="jr_h2">From game prototypes to a full IoT system</h2>
